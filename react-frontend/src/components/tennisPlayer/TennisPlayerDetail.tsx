@@ -13,7 +13,7 @@ export const TennisPlayerDetail = () => {
 
     useEffect(() => {
         const fetchTennisPlayer =async () => {
-            const response = await fetch(`http://127.0.0.1:8000/application/tennisplayer/${tennisPlayerId}/`);
+            const response = await fetch(`../api/tennisplayer/${tennisPlayerId}/`);
             const tennisPlayer = await response.json();
             setTennisPlayer(tennisPlayer);
             console.log(tennisPlayer);
