@@ -42,7 +42,7 @@ export const TennisPlayerUpdate = () => {
         event.preventDefault();
         try {
             await axios.put(`../api/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
-            navigate(`/tennisplayers/${tennisPlayerId}/`);
+            navigate("/tennisplayers/${tennisPlayerId}/");
         } catch (error) {
             console.log(error);
         }
