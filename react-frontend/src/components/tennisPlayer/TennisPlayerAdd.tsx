@@ -19,7 +19,7 @@ export const TennisPlayerAdd = () => {
     const addTennisPlayer =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
         try {
-            await axios.post(`http://127.0.0.1:8000/application/tennisplayer/`, tennisPlayer);
+            await axios.post(`../api/tennisplayer/`, tennisPlayer);
             navigate("/tennisplayers");
         } catch (error) {
             console.log(error);

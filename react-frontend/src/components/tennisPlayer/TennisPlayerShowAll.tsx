@@ -27,7 +27,7 @@ export const TennisPlayerShowAll = () => {
     const [tennisPlayers, setTennisPlayers] = useState([]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/application/tennisplayer/")
+        fetch("../api/tennisplayer/")
             .then(response => response.json())
             .then(data => {
                 setTennisPlayers(data);

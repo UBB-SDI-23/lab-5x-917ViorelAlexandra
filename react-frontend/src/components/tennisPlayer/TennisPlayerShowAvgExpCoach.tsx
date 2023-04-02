@@ -25,7 +25,7 @@ export const TennisPlayerShowAvgExpCoach = () => {
     const [tennisPlayers, setTennisPlayers] = useState([]);
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/application/playeravg/")
+        fetch("../api/playeravg/")
             .then(response => response.json())
             .then(data => {
                 setTennisPlayers(data);
