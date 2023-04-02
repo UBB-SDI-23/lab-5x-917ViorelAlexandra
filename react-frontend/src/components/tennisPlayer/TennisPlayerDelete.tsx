@@ -9,7 +9,7 @@ export const TennisPlayerDelete = () => {
 
     const handleDelete = async(event: {preventDefault: () => void}) => {
         event.preventDefault();
-        await axios.delete(`../api/tennisplayer/${tennisPlayerId}/`);
+        await axios.delete(`../../api/tennisplayer/${tennisPlayerId}/`);
         navigate("/tennisplayers");
     };
 

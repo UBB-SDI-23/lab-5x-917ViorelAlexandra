@@ -22,7 +22,7 @@ export const TennisPlayerUpdate = () => {
 
     useEffect(() => {
         const fetchTennisPlayer = async () => {
-            const response = await fetch(`../api/tennisplayer/${tennisPlayerId}/`);
+            const response = await fetch(`../../api/tennisplayer/${tennisPlayerId}/`);
             const tennisPlayer = await response.json();
             setTennisPlayer({
                 tp_first_name: tennisPlayer.tp_first_name,
@@ -41,7 +41,7 @@ export const TennisPlayerUpdate = () => {
     const updateTennisPlayer =async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.put(`../api/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
+            await axios.put(`../../api/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
             navigate(`/tennisplayers/${tennisPlayerId}`);
         } catch (error) {
             console.log(error);
