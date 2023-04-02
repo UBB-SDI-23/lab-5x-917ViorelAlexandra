@@ -3,33 +3,36 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { TennisPlayerShowAll } from './components/tennisPlayer/TennisPlayerShowAll';
+import { AppMenu } from './components/AppMenu';
+import { AppHome } from './components/AppHome';
+import { TennisPlayerDetail } from './components/tennisPlayer/TennisPlayerDetail';
+import { TennisPlayerDelete } from './components/tennisPlayer/TennisPlayerDelete';
+import { TennisPlayerAdd } from './components/tennisPlayer/TennisPlayerAdd';
+import { TennisPlayerUpdate } from './components/tennisPlayer/TennisPlayerUpdate';
+import { TennisPlayerShowAvgExpCoach } from './components/tennisPlayer/TennisPlayerShowAvgExpCoach';
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <React.Fragment>
-      <TennisPlayerShowAll/>
-
-      {/* <div className="App">
-      
-        <h1>Vite + React</h1>
-        <div className="card">
-          <button onClick={() => setCount((count) => count + 1)}>
-            count is {count}
-          </button>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test HMR
-          </p>
-        </div>
-        <p className="read-the-docs">
-          Click on the Vite and React logos to learn more
-        </p>
-      </div> */}
+      <Router>
+        <AppMenu/>
+        <Routes>
+          <Route path="/" element={<AppHome />} />
+          <Route path="/tennisplayers/" element={<TennisPlayerShowAll />} />
+          <Route path="/tennisplayers/:tennisPlayerId" element={<TennisPlayerDetail />} />
+          <Route path="/tennisplayers/:tennisPlayerId/delete" element={<TennisPlayerDelete />} />
+          <Route path="/tennisplayers/add" element={<TennisPlayerAdd />} /> 
+          <Route path="/tennisplayers/:tennisPlayerId/edit" element={<TennisPlayerUpdate />} />
+          <Route path="/tennisplayers/avgyoecoaches" element={<TennisPlayerShowAvgExpCoach />} />
+        </Routes>
+      </Router>
     </React.Fragment>
 
   )
 }
 
-export default App
+export default App;

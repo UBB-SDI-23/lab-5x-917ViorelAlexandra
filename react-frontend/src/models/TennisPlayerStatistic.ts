@@ -1,4 +1,6 @@
-export interface TennisPlayer {
+import { Coach } from "./Coach";
+
+export interface TennisPlayerStatistic {
     id: number;
     tp_first_name: string;
     tp_last_name: string;
@@ -6,6 +8,6 @@ export interface TennisPlayer {
     tp_date_of_birth: string;
     tp_country: string;
     tp_gender: string;
-    tournaments: number[];
-    coaches: number[];
+    coaches: Coach[];
+    avg_yoe_coach: number;
 }
