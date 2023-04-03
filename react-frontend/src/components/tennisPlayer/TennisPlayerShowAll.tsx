@@ -96,11 +96,6 @@ export const TennisPlayerShowAll = () => {
                             <TableRow key={tennisPlayer.id}>
                                 <TableCell component="th" scope="row">
                                     {index + 1}
-                                <TableCell component="th" scope="row">
-                                    <Link to={`/tennisplayers/${tennisPlayer.id}`} title="View tennis player details">
-                                        {"view details"}
-                                    </Link>
-                                </TableCell>
                                 </TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_first_name}</TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_last_name}</TableCell>
