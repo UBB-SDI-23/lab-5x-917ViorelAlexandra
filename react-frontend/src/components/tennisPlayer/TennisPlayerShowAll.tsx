@@ -10,6 +10,7 @@ import {
 	Container,
 	IconButton,
 	Tooltip,
+    Button
 } from "@mui/material";
 
 import { useEffect, useState } from "react";
@@ -38,6 +39,21 @@ export const TennisPlayerShowAll = () => {
 
     console.log(tennisPlayers);
 
+    const sortTennisPlayer = () => {
+        const sortedPlayers = [...tennisPlayers].sort((a: TennisPlayer, b:TennisPlayer) => {
+            if (a.tp_rank < b.tp_rank) {
+                return -1;
+            }
+            if (a.tp_rank > b.tp_rank) {
+                return 1;
+            }
+            return 0;
+
+        })
+        console.log(sortedPlayers);
+        setTennisPlayers(sortedPlayers);
+    }
+
   
     return (
         <Container>
@@ -53,6 +69,13 @@ export const TennisPlayerShowAll = () => {
                         </Tooltip>
                     </IconButton>
         )}
+
+        {!loading && (
+            <Button sx={{color:"red"}} onClick={sortTennisPlayer}>
+                Sort tennis players
+            </Button>
+        )}
+
         {!loading && tennisPlayers.length > 0 && (
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 900 }} aria-label="simple table">
