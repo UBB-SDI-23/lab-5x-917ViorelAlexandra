@@ -1,0 +1,1 @@
+export const BACKEND_API_URL = "https://tennis-tournaments-app.jumpingcrab.com/application";

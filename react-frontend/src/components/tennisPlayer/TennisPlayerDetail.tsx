@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { TennisPlayerFull} from "../../models/TennisPlayerFull";
+import { BACKEND_API_URL } from "../../constants";
 
 export const TennisPlayerDetail = () => {
     const {tennisPlayerId} = useParams();
@@ -13,7 +14,7 @@ export const TennisPlayerDetail = () => {
 
     useEffect(() => {
         const fetchTennisPlayer =async () => {
-            const response = await fetch(`../api/tennisplayer/${tennisPlayerId}/`);
+            const response = await fetch(`${BACKEND_API_URL}/tennisplayer/${tennisPlayerId}/`);
             const tennisPlayer = await response.json();
             setTennisPlayer(tennisPlayer);
             console.log(tennisPlayer);

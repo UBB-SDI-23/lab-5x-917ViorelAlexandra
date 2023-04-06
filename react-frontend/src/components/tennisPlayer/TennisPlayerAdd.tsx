@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { TennisPlayer } from "../../models/TennisPlayer";
+import { BACKEND_API_URL } from "../../constants";
 
 export const TennisPlayerAdd = () => {
     const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const TennisPlayerAdd = () => {
     const addTennisPlayer =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
         try {
-            await axios.post(`../api/tennisplayer/`, tennisPlayer);
+            await axios.post(`${BACKEND_API_URL}/tennisplayer/`, tennisPlayer);
             navigate("/tennisplayers");
         } catch (error) {
             console.log(error);

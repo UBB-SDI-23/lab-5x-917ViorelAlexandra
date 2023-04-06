@@ -20,6 +20,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddIcon from "@mui/icons-material/Add";
 import { Link } from "react-router-dom";
+import { BACKEND_API_URL } from "../../constants";
 
 
 
@@ -28,7 +29,7 @@ export const TennisPlayerShowAll = () => {
     const [tennisPlayers, setTennisPlayers] = useState([]);
 
     useEffect(() => {
-        fetch("https://tennis-tournaments-app.jumpingcrab.com/application/tennisplayer/")
+        fetch(`${BACKEND_API_URL}/tennisplayer/`)
             .then(response => response.json())
             .then(data => {
                 setTennisPlayers(data);

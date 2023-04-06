@@ -5,6 +5,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { TennisPlayerFull } from "../../models/TennisPlayerFull";
+import { BACKEND_API_URL } from "../../constants";
 
 export const TennisPlayerUpdate = () => {
     const navigate = useNavigate();
@@ -22,7 +23,7 @@ export const TennisPlayerUpdate = () => {
 
     useEffect(() => {
         const fetchTennisPlayer = async () => {
-            const response = await fetch(`../../api/tennisplayer/${tennisPlayerId}/`);
+            const response = await fetch(`${BACKEND_API_URL}/tennisplayer/${tennisPlayerId}/`);
             const tennisPlayer = await response.json();
             setTennisPlayer({
                 tp_first_name: tennisPlayer.tp_first_name,
@@ -41,7 +42,7 @@ export const TennisPlayerUpdate = () => {
     const updateTennisPlayer =async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.put(`../../api/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
+            await axios.put(`${BACKEND_API_URL}/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
             navigate(`/tennisplayers/${tennisPlayerId}`);
         } catch (error) {
             console.log(error);

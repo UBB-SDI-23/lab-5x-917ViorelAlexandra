@@ -19,13 +19,15 @@ import { Link } from "react-router-dom";
 
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { TennisPlayerStatistic } from "../../models/TennisPlayerStatistic";
+import { BACKEND_API_URL } from "../../constants";
+
 
 export const TennisPlayerShowAvgExpCoach = () => {
     const [loading, setLoading] = useState(true);
     const [tennisPlayers, setTennisPlayers] = useState([]);
 
     useEffect(() => {
-        fetch("../api/playeravg/")
+        fetch(`${BACKEND_API_URL}/playeravg/`)
             .then(response => response.json())
             .then(data => {
                 setTennisPlayers(data);
