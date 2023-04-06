@@ -1,6 +1,6 @@
 # from django.shortcuts import render
 # from rest_framework.response import Response
-# from rest_framework.views import APIView
+# from rest_framework.Views import APIView
 # from rest_framework import status
 # from .models import TennisPlayer, Coach, Tournament, TournamentRegistration
 # from .serializer import TennisPlayerSerializer, CoachSerializer, TournamentSerializer, TournamentRegistrationSerializer, \
@@ -9,7 +9,7 @@
 # from django.forms import modelformset_factory
 # from django.shortcuts import render
 # from .forms import CoachForm
-# # Create your views here.
+# # Create your Views here.
 #
 #
 # class TennisPlayerDetail(APIView):
