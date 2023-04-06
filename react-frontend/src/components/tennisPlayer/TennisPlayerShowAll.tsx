@@ -28,7 +28,7 @@ export const TennisPlayerShowAll = () => {
     const [tennisPlayers, setTennisPlayers] = useState([]);
 
     useEffect(() => {
-        fetch("../api/tennisplayer/")
+        fetch("https://tennis-tournaments-app.jumpingcrab.com/application/tennisplayer/")
             .then(response => response.json())
             .then(data => {
                 setTennisPlayers(data);
