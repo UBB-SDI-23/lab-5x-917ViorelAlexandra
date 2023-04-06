@@ -1,7 +1,11 @@
 from django.urls import path
-from .views import TennisPlayerDetail, TennisPlayerInfo, CoachDetail, CoachInfo, CoachesWithAtLeastNYearsExperience, \
-    TournamentRegistrationInfo, TournamentRegistrationDetail, TournamentInfo, TournamentDetail, \
-    PlayersByAvgYearsOfExperienceOfCoaches, PlayersRegisteredInGrandSlams, TennisPlayerCoachListInfo
+
+from tennis.application.views.CoachViews import CoachDetail, CoachInfo, CoachesWithAtLeastNYearsExperience
+from tennis.application.views.TennisPlayerViews import TennisPlayerDetail, TennisPlayerInfo, \
+    TennisPlayerCoachListInfo, PlayersByAvgYearsOfExperienceOfCoaches, PlayersRegisteredInGrandSlams
+from tennis.application.views.TournamentRegistrationViews import TournamentRegistrationDetail, \
+    TournamentRegistrationInfo
+from tennis.application.views.TournamentViews import TournamentDetail, TournamentInfo
 
 
 urlpatterns = [
