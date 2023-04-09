@@ -1,5 +1,5 @@
 from django.db import models
-from ..Models import TennisPlayer
+from ..Models import TennisPlayer, TournamentRegistration
 
 class Tournament(models.Model):
     t_name = models.CharField(max_length=100)
