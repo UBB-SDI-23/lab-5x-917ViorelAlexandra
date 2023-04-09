@@ -93,7 +93,7 @@ export const TennisPlayerShowAll = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {tennisPlayers.slice(0, 100).map((tennisPlayer:TennisPlayer, index) => (
+                        {tennisPlayers.map((tennisPlayer:TennisPlayer, index) => (
                             <TableRow key={tennisPlayer.id}>
                                 <TableCell component="th" scope="row">
                                     {index + 1}
