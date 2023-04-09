@@ -2,11 +2,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from ..models import TennisPlayer, TournamentRegistration, Coach, Tournament
-# from ..Serializers.TennisPlayerSerializers import TennisPlayerSerializer, TennisPlayerIdSerializer
-# from ..Serializers.TournamentSerializers import TournamentSerializer, TournamentIdSerializer
-# from ..Serializers.CoachSerializers import CoachSerializer, CoachIdSerializer
-# from ..Serializers.TournamentRegistrationSerializers import TournamentRegistrationSerializer, TournamentRegistrationIdSerializer
+from ..models import Coach
 from ..serializer import CoachSerializer, CoachIdSerializer
 
 class CoachDetail(APIView):
