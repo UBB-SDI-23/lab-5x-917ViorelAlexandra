@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..Models import TennisPlayer
+from ..models import TennisPlayer
 
 class TennisPlayerSerializer(serializers.ModelSerializer):
 

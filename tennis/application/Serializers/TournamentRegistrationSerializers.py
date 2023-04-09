@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..Models import TennisPlayer, Tournament, TournamentRegistration
+from ..models import TennisPlayer, Tournament, TournamentRegistration
 
 class TournamentRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
