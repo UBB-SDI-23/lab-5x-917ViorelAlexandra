@@ -23,6 +23,7 @@ class Coach(models.Model):
     c_years_of_experience = models.IntegerField()
     c_email = models.CharField(max_length=100)
     player = models.ForeignKey(TennisPlayer, on_delete=models.CASCADE, related_name="coaches")
+    c_description = models.CharField(max_length=5000, default="")
 
     def __str__(self):
         return self.c_last_name
