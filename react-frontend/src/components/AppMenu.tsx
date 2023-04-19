@@ -12,8 +12,8 @@ export const AppMenu = () => {
     const path = location.pathname;
 
     return (
-<Box sx={{ flexGrow: 1 }}>
-			<AppBar position="static" sx={{ marginBottom: "20px" }}>
+		<Box>
+			<AppBar style={{backgroundColor:"#B17BED"}}>
 				<Toolbar>
 					<IconButton
 						component={Link}
