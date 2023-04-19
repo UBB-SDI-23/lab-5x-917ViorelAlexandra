@@ -2,12 +2,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .Pagination import CustomPagination
 from ..models import Coach
 from ..serializer import CoachSerializer, CoachIdSerializer
 
 class CoachDetail(APIView):
 
     serializer_class = CoachSerializer
+    pagination_class = CustomPagination
 
     def get(self, request):
         obj = Coach.objects.all()
@@ -26,6 +28,7 @@ class CoachDetail(APIView):
 class CoachInfo(APIView):
 
     serializer_class = CoachIdSerializer
+    pagination_class = CustomPagination
 
     def get(self, request, id):
         try:

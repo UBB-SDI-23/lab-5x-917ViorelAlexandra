@@ -1,5 +1,3 @@
-import { TennisPlayer } from "./TennisPlayer";
-
 export interface Coach {
     id: number;
     c_first_name: string;
@@ -7,5 +5,4 @@ export interface Coach {
     c_date_of_birth: string;
     c_years_of_experience: number;
     c_email: string;
-    player: TennisPlayer;
 }

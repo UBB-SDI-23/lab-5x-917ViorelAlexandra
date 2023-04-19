@@ -1,5 +1,3 @@
-import { TennisPlayer } from "./TennisPlayer";
-
 export interface Tournament {
     id: number;
     t_name: string;
@@ -7,5 +5,4 @@ export interface Tournament {
     t_start_date: string;
     t_end_date: string;
     t_type: string;
-    players: TennisPlayer[];
 }

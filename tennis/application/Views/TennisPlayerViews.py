@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .Pagination import CustomPagination
 from ..models import TennisPlayer, TournamentRegistration
 from ..serializer import TennisPlayerSerializer, TennisPlayerIdSerializer, CoachSerializer, \
     TournamentRegistrationSerializer
@@ -10,6 +11,7 @@ from ..serializer import TennisPlayerSerializer, TennisPlayerIdSerializer, Coach
 class TennisPlayerDetail(APIView):
 
     serializer_class = TennisPlayerSerializer
+    pagination_class = CustomPagination
 
     def get(self, request):
         obj = TennisPlayer.objects.all()[:100]
@@ -28,6 +30,7 @@ class TennisPlayerDetail(APIView):
 class TennisPlayerInfo(APIView):
 
     serializer_class = TennisPlayerIdSerializer
+    pagination_class = CustomPagination
 
     def get(self, request, id):
         try:

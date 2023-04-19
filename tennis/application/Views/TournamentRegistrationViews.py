@@ -2,12 +2,14 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
+from .Pagination import CustomPagination
 from ..models import TournamentRegistration
 from ..serializer import TournamentRegistrationSerializer, TournamentRegistrationIdSerializer
 
 class TournamentRegistrationDetail(APIView):
 
     serializer_class = TournamentRegistrationSerializer
+    pagination_class = CustomPagination
 
     def get(self, request):
         obj = TournamentRegistration.objects.all()
@@ -26,6 +28,7 @@ class TournamentRegistrationDetail(APIView):
 class TournamentRegistrationInfo(APIView):
 
     serializer_class = TournamentRegistrationIdSerializer
+    pagination_class = CustomPagination
 
     def get(self, request, id):
         try:
