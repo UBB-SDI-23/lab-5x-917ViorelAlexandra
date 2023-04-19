@@ -11,6 +11,20 @@ import { TennisPlayerDetail } from './components/tennisPlayer/TennisPlayerDetail
 import { TennisPlayerDelete } from './components/tennisPlayer/TennisPlayerDelete';
 import { TennisPlayerAdd } from './components/tennisPlayer/TennisPlayerAdd';
 import { TennisPlayerUpdate } from './components/tennisPlayer/TennisPlayerUpdate';
+import { CoachAdd } from './components/coach/CoachAdd';
+import { CoachDelete } from './components/coach/CoachDelete';
+import { CoachDetail } from './components/coach/CoachDetail';
+import { CoachShowAll } from './components/coach/CoachShowAll';
+import { CoachUpdate } from './components/coach/CoachUpdate';
+import { TournamentAdd } from './components/tournament/TournamentAdd';
+import { TournamentDelete } from './components/tournament/TournamentDelete';
+import { TournamentDetail } from './components/tournament/TournamentDetail';
+import { TournamentShowAll } from './components/tournament/TournamentShowAll';
+import { TournamentUpdate } from './components/tournament/TournamentUpdate';
+import { TournamentRegistrationAdd } from './components/tournamentRegistration/TournamentRegistrationAdd';
+import { TournamentRegDelete } from './components/tournamentRegistration/TournamentRegistrationDelete';
+import { TournamentRegDetail } from './components/tournamentRegistration/TournamentRegistrationDetail';
+import { TournamentRegistrationShowAll } from './components/tournamentRegistration/TournamentRegistrationShowAll';
 import { TennisPlayerShowAvgExpCoach } from './components/tennisPlayer/TennisPlayerShowAvgExpCoach';
 
 function App() {
@@ -27,6 +41,20 @@ function App() {
           <Route path="/tennisplayers/:tennisPlayerId/delete" element={<TennisPlayerDelete />} />
           <Route path="/tennisplayers/add" element={<TennisPlayerAdd />} /> 
           <Route path="/tennisplayers/:tennisPlayerId/edit" element={<TennisPlayerUpdate />} />
+          <Route path="/coaches/" element={<CoachShowAll/>} />
+          <Route path="/coaches/:coachId" element={<CoachDetail/>}/>
+          <Route path="/coaches/:coachId/delete" element={<CoachDelete/>}/>
+          <Route path="/coaches/add" element={<CoachAdd />} />
+          <Route path="/coaches/:coachId/edit" element={<CoachUpdate/>}/>
+          <Route path="/tournaments/" element={<TournamentShowAll/>}/>
+          <Route path="/tournaments/:tournamentId" element={<TournamentDetail/>}/>
+          <Route path="/tournaments/:tournamentId/delete" element={<TournamentDelete/>}/>
+          <Route path="/tournaments/add" element={<TournamentAdd />}/>
+          <Route path="/tournaments/:tournamentId/edit" element={<TournamentUpdate/>}/>
+          <Route path="/tournamentregs/" element={<TournamentRegistrationShowAll/>}/>
+          <Route path="/tournamentregs/:tournamentRegId" element={<TournamentRegDetail/>}/>
+          <Route path="/tournamentregs/:tournamentRegId/delete" element={<TournamentRegDelete/>}/>
+          <Route path="/tournamentregs/add" element={<TournamentRegistrationAdd/>}/>
           <Route path="/tennisplayers/avgyoecoaches" element={<TennisPlayerShowAvgExpCoach />} />
         </Routes>
       </Router>

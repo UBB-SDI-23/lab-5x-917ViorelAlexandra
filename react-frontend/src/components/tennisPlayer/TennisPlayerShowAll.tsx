@@ -18,7 +18,7 @@ import { TennisPlayer } from "../../models/TennisPlayer";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import AddIcon from "@mui/icons-material/Add";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Link } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
 
@@ -82,7 +82,7 @@ export const TennisPlayerShowAll = () => {
         {!loading && (
             <IconButton component={Link} sx={{ mr: 3 }} to={`/tennisplayers/add`}>
                         <Tooltip title="Add a new tennis player" arrow>
-                            <AddIcon color="primary" />
+                            <AddCircleIcon color="primary" />
                         </Tooltip>
                     </IconButton>
         )}
