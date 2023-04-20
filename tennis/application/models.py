@@ -17,7 +17,6 @@ class TennisPlayer(models.Model):
 
     class Meta:
         ordering = ['id']
-        indexes = [models.Index(fields=["id"])]
 
 
 class Coach(models.Model):
@@ -34,7 +33,7 @@ class Coach(models.Model):
 
     class Meta:
         ordering = ['id']
-        indexes = [models.Index(fields=["id"])]
+        indexes = [models.Index(fields=["player"])]
 
 
 class Tournament(models.Model):
@@ -50,7 +49,6 @@ class Tournament(models.Model):
 
     class Meta:
         ordering = ['id']
-        indexes = [models.Index(fields=["id"])]
 
 
 class TournamentRegistration(models.Model):
@@ -61,4 +59,4 @@ class TournamentRegistration(models.Model):
 
     class Meta:
         ordering = ['id']
-        indexes = [models.Index(fields=["id"])]
+        indexes = [models.Index(fields=["tr_player", "tr_tournament"])]
