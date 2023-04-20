@@ -42,7 +42,7 @@ function App() {
           <Route path="/tennisplayers/add" element={<TennisPlayerAdd />} /> 
           <Route path="/tennisplayers/:tennisPlayerId/edit" element={<TennisPlayerUpdate />} />
           <Route path="/coaches/" element={<CoachShowAll/>} />
-          <Route path="/coaches/:coachId" element={<CoachDetail/>}/>
+          <Route path="/coaches/:coachId" element={<CoachDetail />}/>
           <Route path="/coaches/:coachId/delete" element={<CoachDelete/>}/>
           <Route path="/coaches/add" element={<CoachAdd />} />
           <Route path="/coaches/:coachId/edit" element={<CoachUpdate/>}/>

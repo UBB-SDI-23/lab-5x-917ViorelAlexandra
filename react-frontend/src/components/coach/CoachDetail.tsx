@@ -14,7 +14,7 @@ export const CoachDetail = () => {
     useEffect(() => {
         const fetchCoach =async () => {
             const response = await fetch(`${BACKEND_API_URL}/coach/${coachId}/`);
-            const tennisPlayer = await response.json();
+            const coach = await response.json();
             setCoach(coach);
             console.log(coach);
         };
