@@ -1,1 +1,1 @@
-export const BACKEND_API_URL = "https://tennis-tournaments-app.jumpingcrab.com/application";
+export const BACKEND_API_URL = "https://tennis-app-week7.jumpingcrab.com/application";
