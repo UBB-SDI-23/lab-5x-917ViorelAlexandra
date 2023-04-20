@@ -93,8 +93,8 @@ export const TournamentRegistrationShowAll = () => {
                                 </TableCell>
                                 <TableCell align="center">{tournamentReg.tr_registration_date}</TableCell>
                                 <TableCell align="center">{tournamentReg.tr_last_year_performance}</TableCell>
-                                <TableCell align="center">{tournamentReg.tr_player.id}</TableCell>
-                                <TableCell align="center">{tournamentReg.tr_tournament.id}</TableCell>
+                                <TableCell align="center">{tournamentReg?.tr_player?.id}</TableCell>
+                                <TableCell align="center">{tournamentReg?.tr_tournament?.id}</TableCell>
                                 <TableCell align="right">
 										<IconButton
 											component={Link}
