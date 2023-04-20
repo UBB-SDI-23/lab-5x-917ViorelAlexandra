@@ -45,7 +45,7 @@ export const TennisPlayerShowAll = () => {
     const fetchTennisPlayers = async() => {
         setLoading(true);
         const response = await fetch(
-            `${BACKEND_API_URL}/tennisplayer?page=${page}&page_size=${pageSize}`
+            `${BACKEND_API_URL}/tennisplayer/?page=${page}&page_size=${pageSize}`
         );
         const {count, next, previous, results} = await response.json();
         setTennisPlayers(results);
