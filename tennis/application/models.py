@@ -15,6 +15,10 @@ class TennisPlayer(models.Model):
     def __str__(self):
         return self.tp_last_name
 
+    class Meta:
+        ordering = ['id']
+        indexes = [models.Index(fields=["id"])]
+
 
 class Coach(models.Model):
     c_first_name = models.CharField(max_length=100)
@@ -28,6 +32,10 @@ class Coach(models.Model):
     def __str__(self):
         return self.c_last_name
 
+    class Meta:
+        ordering = ['id']
+        indexes = [models.Index(fields=["id"])]
+
 
 class Tournament(models.Model):
     t_name = models.CharField(max_length=100)
@@ -40,9 +48,17 @@ class Tournament(models.Model):
     def __str__(self):
         return self.t_name
 
+    class Meta:
+        ordering = ['id']
+        indexes = [models.Index(fields=["id"])]
+
 
 class TournamentRegistration(models.Model):
     tr_registration_date = models.DateField()
     tr_last_year_performance = models.CharField(max_length=100)
     tr_player = models.ForeignKey(TennisPlayer, on_delete=models.CASCADE, null=False)
     tr_tournament = models.ForeignKey(Tournament, on_delete=models.CASCADE, null=False)
+
+    class Meta:
+        ordering = ['id']
+        indexes = [models.Index(fields=["id"])]

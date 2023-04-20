@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -6,23 +6,32 @@ from .Pagination import CustomPagination
 from ..models import TournamentRegistration, Tournament
 from ..serializer import TournamentSerializer, TournamentIdSerializer, TournamentRegistrationSerializer
 
-class TournamentDetail(APIView):
+# class TournamentDetail(APIView):
+#
+#     serializer_class = TournamentSerializer
+#     pagination_class = CustomPagination
+#
+#     def get(self, request):
+#         obj = Tournament.objects.all()
+#         #ids_list = list(obj.values_list('id', flat=True))
+#         serializer = TournamentSerializer(obj, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#     def post(self, request):
+#         serializer = TournamentSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+class TournamentListCreateView(generics.ListCreateAPIView):
     serializer_class = TournamentSerializer
     pagination_class = CustomPagination
 
-    def get(self, request):
-        obj = Tournament.objects.all()
-        #ids_list = list(obj.values_list('id', flat=True))
-        serializer = TournamentSerializer(obj, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = TournamentSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        queryset = Tournament.objects.all()
+        #print(queryset.explain())
+        return queryset
 
 
 class TournamentInfo(APIView):

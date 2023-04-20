@@ -1,4 +1,4 @@
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -6,23 +6,32 @@ from .Pagination import CustomPagination
 from ..models import Coach
 from ..serializer import CoachSerializer, CoachIdSerializer
 
-class CoachDetail(APIView):
+# class CoachDetail(APIView):
+#
+#     serializer_class = CoachSerializer
+#     pagination_class = CustomPagination
+#
+#     def get(self, request):
+#         obj = Coach.objects.all()
+#         #ids_list = list(obj.values_list('id', flat=True))
+#         serializer = CoachSerializer(obj, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#     def post(self, request):
+#         serializer = CoachSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+class CoachListCreateView(generics.ListCreateAPIView):
     serializer_class = CoachSerializer
     pagination_class = CustomPagination
 
-    def get(self, request):
-        obj = Coach.objects.all()
-        #ids_list = list(obj.values_list('id', flat=True))
-        serializer = CoachSerializer(obj, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = CoachSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
+    def get_queryset(self):
+        queryset = Coach.objects.all()
+        #print(queryset.explain())
+        return queryset
 
 
 class CoachInfo(APIView):
