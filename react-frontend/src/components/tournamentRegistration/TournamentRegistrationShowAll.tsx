@@ -15,6 +15,8 @@ import {
 
 import { useEffect, useState } from "react";
 import { TournamentRegistration } from "../../models/TournamentRegistration";
+import { Tournament } from "../../models/Tournament";
+import { TennisPlayer } from "../../models/TennisPlayer";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
