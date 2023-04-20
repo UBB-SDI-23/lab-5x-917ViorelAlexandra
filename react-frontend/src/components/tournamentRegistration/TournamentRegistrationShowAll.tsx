@@ -82,8 +82,8 @@ export const TournamentRegistrationShowAll = () => {
                             <TableCell>#</TableCell>
                             <TableCell align="center">Registration Date</TableCell>
                             <TableCell align="center">Last Year Performance</TableCell>
-                            <TableCell align="center">Player</TableCell>
-                            <TableCell align="center">Tournament</TableCell>
+                            {/* <TableCell align="center">Player</TableCell>
+                            <TableCell align="center">Tournament</TableCell> */}
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>
