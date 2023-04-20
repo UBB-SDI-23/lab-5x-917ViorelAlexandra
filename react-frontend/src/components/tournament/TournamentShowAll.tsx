@@ -50,7 +50,7 @@ export const TournamentShowAll = () => {
         const {count, next, previous, results} = await response.json();
         setTournaments(results);
         setLoading(false);
-        console.log(tournaments);
+        console.log(results);
     };
 
     useEffect(() => {
