@@ -14,7 +14,7 @@ class TennisPlayerDetail(APIView):
     pagination_class = CustomPagination
 
     def get(self, request):
-        obj = TennisPlayer.objects.all()[:100]
+        obj = TennisPlayer.objects.all()
         #ids_list = list(obj.values_list('id', flat=True))
         serializer = TennisPlayerSerializer(obj, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
