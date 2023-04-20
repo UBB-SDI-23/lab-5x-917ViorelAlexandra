@@ -1,14 +1,14 @@
 from django.urls import path
 
 from .Views.CoachViews import CoachDetail, CoachInfo, CoachesWithAtLeastNYearsExperience
-from .Views.TennisPlayerViews import TennisPlayerDetail, TennisPlayerInfo, TennisPlayerCoachListInfo, \
+from .Views.TennisPlayerViews import TennisPlayerListCreateView, TennisPlayerInfo, TennisPlayerCoachListInfo, \
     PlayersByAvgYearsOfExperienceOfCoaches, PlayersRegisteredInGrandSlams
 from .Views.TournamentRegistrationViews import TournamentRegistrationDetail, TournamentRegistrationInfo
 from .Views.TournamentViews import TournamentInfo, TournamentDetail
 
 urlpatterns = [
 
-    path("tennisplayer/", TennisPlayerDetail.as_view(), name="tennisplayer"),
+    path("tennisplayer/", TennisPlayerListCreateView.as_view(), name="tennisplayer"),
     path("tennisplayer/<int:id>/", TennisPlayerInfo.as_view()),
     path("tennisplayer/<int:id>/coach/", TennisPlayerCoachListInfo.as_view()),
     path("coach/", CoachDetail.as_view(), name="coach"),

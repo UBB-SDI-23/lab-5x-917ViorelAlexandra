@@ -1,5 +1,5 @@
 from django.db.models import Avg
-from rest_framework import status
+from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -8,24 +8,33 @@ from ..models import TennisPlayer, TournamentRegistration
 from ..serializer import TennisPlayerSerializer, TennisPlayerIdSerializer, CoachSerializer, \
     TournamentRegistrationSerializer
 
-class TennisPlayerDetail(APIView):
+# class TennisPlayerDetail(APIView):
+#
+#     serializer_class = TennisPlayerSerializer
+#     pagination_class = CustomPagination
+#
+#     def get(self, request):
+#         obj = TennisPlayer.objects.all()
+#         #ids_list = list(obj.values_list('id', flat=True))
+#         serializer = TennisPlayerSerializer(obj, many=True)
+#         return Response(serializer.data, status=status.HTTP_200_OK)
+#
+#     def post(self, request):
+#         serializer = TennisPlayerSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
+
+class TennisPlayerListCreateView(generics.ListCreateAPIView):
     serializer_class = TennisPlayerSerializer
     pagination_class = CustomPagination
 
-    def get(self, request):
-        obj = TennisPlayer.objects.all()
-        #ids_list = list(obj.values_list('id', flat=True))
-        serializer = TennisPlayerSerializer(obj, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
-
-    def post(self, request):
-        serializer = TennisPlayerSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
-
+    def get_queryset(self):
+        queryset = TennisPlayer.objects.all()
+        #print(queryset.explain())
+        return queryset
 
 class TennisPlayerInfo(APIView):
 
