@@ -28,7 +28,6 @@ class TournamentDetail(APIView):
 class TournamentInfo(APIView):
 
     serializer_class = TournamentIdSerializer
-    pagination_class = CustomPagination
 
     def get(self, request, id):
         try:

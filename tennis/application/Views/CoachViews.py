@@ -28,7 +28,6 @@ class CoachDetail(APIView):
 class CoachInfo(APIView):
 
     serializer_class = CoachIdSerializer
-    pagination_class = CustomPagination
 
     def get(self, request, id):
         try:
