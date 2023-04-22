@@ -59,13 +59,10 @@ export const CoachUpdate = () => {
             console.log(coach);
         };
         fetchCoach();
-    }, [coachId]);
-
-	useEffect(() => {
 		return () => {
 			debouncedFetchSuggestions.cancel();
 		};
-	}, [debouncedFetchSuggestions]);
+    }, [coachId, debouncedFetchSuggestions]);
 
     const updateCoach =async (event: { preventDefault: () => void }) => {
         event.preventDefault();
