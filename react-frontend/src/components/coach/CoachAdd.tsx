@@ -1,4 +1,4 @@
-import { Autocomplete, Button, Card, CardActions, CardContent, Container, IconButton, TextField, MenuProps } from "@mui/material";
+import { Autocomplete, Button, Card, CardActions, CardContent, Container, IconButton, TextField } from "@mui/material";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
@@ -65,22 +65,6 @@ export const CoachAdd = () => {
 		}
 	};
 
-	const fetchMoreData = async (query: string) => {
-		const nextPage = page + 1;
-		const response = await fetch(`${BACKEND_API_URL}/playerOrdName/${query}/?page=${nextPage}&page_size=${pageSize}`);
-		const {count, next, previous, results} = await response.json();
-		setPlayers((prevData) => [...prevData, ...results]);
-		setPage(nextPage);
-	  };
-
-	const handleMenuScroll = (event: any) => {
-		const {scrollTop, scrollHeight, clientHeight} = event.target;
-		if (scrollTop + clientHeight === scrollHeight && page < totalPages) {
-			fetchMoreData(query);
-		}
-	};
-
-
     return (
         <Container>
 			<Card>
@@ -146,25 +130,15 @@ export const CoachAdd = () => {
 							id="player"
 							options={players}
 							renderInput={(params) => <TextField {...params} label="Player" variant="outlined" />}
-							getOptionLabel={(option: any) => `${option.tp_last_name} - ${option.tp_first_name}`}
-							filterOptions={(options, state) => options.filter((option: any) => option.tp_last_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
+							getOptionLabel={(option) => `${option.tp_last_name} - ${option.tp_first_name}`}
+							filterOptions={(options, state) => options.filter((option) => option.tp_last_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
 							onInputChange={handleInputChange}
-							onChange={(event, value: any) => {
+							onChange={(event, value) => {
 								if (value) {
 									console.log(value);
 									setCoach({...coach, player: value.id})
 								}
 							}}
-							{...(Autocomplete as any).props}
-							MenuProps={{
-								onScroll: (event: any) => {
-								  const { scrollTop, clientHeight, scrollHeight } = event.target;
-								  if (scrollTop + clientHeight === scrollHeight) {
-									fetchMoreData(query);
-								  }
-								},
-								style: { maxHeight: 200, overflow: 'auto' }
-							  }}
 						/>
 
 						<Button type="submit">Add Coach</Button>
