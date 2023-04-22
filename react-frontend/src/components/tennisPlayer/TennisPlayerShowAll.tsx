@@ -96,6 +96,7 @@ export const TennisPlayerShowAll = () => {
                             <TableCell align="center">Country</TableCell>
                             <TableCell align="center">Gender</TableCell>
                             <TableCell align="center">Number of coaches</TableCell>
+                            <TableCell align="center">Number of registers</TableCell>
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>

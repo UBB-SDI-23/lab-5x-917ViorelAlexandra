@@ -1,3 +1,4 @@
+from django.db.models import Count
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -29,7 +30,7 @@ class TournamentListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = Tournament.objects.all()
+        queryset = Tournament.objects.all().annotate(nb_registers=Count('players'))
         #print(queryset.explain())
         return queryset
 

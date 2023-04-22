@@ -32,7 +32,7 @@ class TennisPlayerListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = TennisPlayer.objects.all().annotate(nb_coaches=Count('coaches'))
+        queryset = TennisPlayer.objects.all().annotate(nb_coaches=Count('coaches')).annotate(nb_registers=Count('tournaments'))
         #print(queryset.explain())
         return queryset
 

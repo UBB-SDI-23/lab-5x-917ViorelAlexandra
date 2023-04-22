@@ -5,4 +5,5 @@ export interface Tournament {
     t_start_date: string;
     t_end_date: string;
     t_type: string;
+    nb_registers: number;
 }
