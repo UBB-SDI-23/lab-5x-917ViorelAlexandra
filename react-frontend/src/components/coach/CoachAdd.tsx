@@ -1,5 +1,5 @@
-import { Autocomplete, Button, Card, CardActions, CardContent, Container, IconButton, TextField } from "@mui/material";
-import { useState, useCallback, useEffect } from "react";
+import { Autocomplete, Button, Card, CardActions, CardContent, Container, IconButton, TextField, MenuProps } from "@mui/material";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
@@ -22,6 +22,9 @@ export const CoachAdd = () => {
 	const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
 	const [players, setPlayers] = useState<TennisPlayer[]>([]);
+	const [totalPages, setTotalPages] = useState(0);
+	const [query, setQuery] = useState("");
+	const inputRef = useRef(null);
 
 	const fetchSuggestions = async (query: string) => {
 		try {
@@ -29,6 +32,7 @@ export const CoachAdd = () => {
 			const response = await fetch(url);
 			const {count, next, previous, results} = await response.json();
 			setPlayers(results);
+			setQuery(query);
 			console.log(results);
 		} catch (error) {
 			console.error("Error fetching suggestions:", error);
@@ -57,8 +61,25 @@ export const CoachAdd = () => {
 		console.log("input", value, reason);
 		if (reason === "input") {
 			debouncedFetchSuggestions(value);
+			setQuery(value);
 		}
 	};
+
+	const fetchMoreData = async (query: string) => {
+		const nextPage = page + 1;
+		const response = await fetch(`${BACKEND_API_URL}/playerOrdName/${query}/?page=${nextPage}&page_size=${pageSize}`);
+		const {count, next, previous, results} = await response.json();
+		setPlayers((prevData) => [...prevData, ...results]);
+		setPage(nextPage);
+	  };
+
+	const handleMenuScroll = (event: any) => {
+		const {scrollTop, scrollHeight, clientHeight} = event.target;
+		if (scrollTop + clientHeight === scrollHeight && page < totalPages) {
+			fetchMoreData(query);
+		}
+	};
+
 
     return (
         <Container>
@@ -125,15 +146,25 @@ export const CoachAdd = () => {
 							id="player"
 							options={players}
 							renderInput={(params) => <TextField {...params} label="Player" variant="outlined" />}
-							getOptionLabel={(option) => `${option.tp_last_name} - ${option.tp_first_name}`}
-							filterOptions={(options, state) => options.filter((option) => option.tp_last_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
+							getOptionLabel={(option: any) => `${option.tp_last_name} - ${option.tp_first_name}`}
+							filterOptions={(options, state) => options.filter((option: any) => option.tp_last_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
 							onInputChange={handleInputChange}
-							onChange={(event, value) => {
+							onChange={(event, value: any) => {
 								if (value) {
 									console.log(value);
 									setCoach({...coach, player: value.id})
 								}
 							}}
+							{...(Autocomplete as any).props}
+							MenuProps={{
+								onScroll: (event: any) => {
+								  const { scrollTop, clientHeight, scrollHeight } = event.target;
+								  if (scrollTop + clientHeight === scrollHeight) {
+									fetchMoreData(query);
+								  }
+								},
+								style: { maxHeight: 200, overflow: 'auto' }
+							  }}
 						/>
 
 						<Button type="submit">Add Coach</Button>
