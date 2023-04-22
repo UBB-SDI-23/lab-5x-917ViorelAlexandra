@@ -113,6 +113,7 @@ export const TennisPlayerShowAll = () => {
                                 <TableCell align="center">{tennisPlayer.tp_country}</TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_gender}</TableCell>
                                 <TableCell align="center">{tennisPlayer.nb_coaches}</TableCell>
+                                <TableCell align="center">{tennisPlayer.nb_registers}</TableCell>
                                 <TableCell align="right">
 										<IconButton
 											component={Link}
