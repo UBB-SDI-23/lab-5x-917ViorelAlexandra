@@ -122,34 +122,48 @@ class TennisPlayerCoachListInfo(APIView):
                 serializer.save()
         return Response(msg, status=status.HTTP_201_CREATED)
 
-class PlayersByAvgYearsOfExperienceOfCoaches(APIView):
 
-    def get(self, request):
-        avg_yoe = TennisPlayer.objects \
+class PlayersByAvgYearsOfExperienceOfCoaches(generics.ListCreateAPIView):
+
+    serializer_class = TennisPlayerSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = TennisPlayer.objects \
             .annotate(avg_yoe_coach=Avg('coaches__c_years_of_experience'))\
             .order_by('avg_yoe_coach')
-        serializer = TennisPlayerSerializer(avg_yoe, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        return queryset
 
 
-class PlayersRegisteredInGrandSlams(APIView):
-    def get(self, request):
-        tourn_regs = {}
-        regs = TournamentRegistration.objects.all()
-        for reg in regs:
-            if reg.tr_tournament.id in tourn_regs:
-                x = tourn_regs[reg.tr_tournament.id]
-                x += 1
-                tourn_regs.update({reg.tr_tournament.id : x})
-            else:
-                tourn_regs.update({reg.tr_tournament.id : 1})
-        print(tourn_regs)
-        sorted_reg = sorted(tourn_regs.items(), key=lambda x:x[1], reverse=True)
-        print(sorted_reg)
-        sorted_reg = sorted_reg[:2]
-        # for r in sorted_reg:
-        #     players = TopRegDTO(r[0], r[1])
-        # players = TopRegDTO(sorted_reg)
-        # serializer = TournamentRegistrationSerializer(players, many=True)
-        return Response(sorted_reg, status=status.HTTP_200_OK)
+class PlayersRegisteredInGrandSlams(generics.ListCreateAPIView):
+
+    serializer_class = TennisPlayerSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        queryset = TennisPlayer.objects.filter(tournaments__tr_tournament__t_type='Grand Slam')\
+            .order_by('tp_rank')[:3]
+        return queryset
+
+
+
+
+        # tourn_regs = {}
+        # regs = TournamentRegistration.objects.all()
+        # for reg in regs:
+        #     if reg.tr_tournament.id in tourn_regs:
+        #         x = tourn_regs[reg.tr_tournament.id]
+        #         x += 1
+        #         tourn_regs.update({reg.tr_tournament.id : x})
+        #     else:
+        #         tourn_regs.update({reg.tr_tournament.id : 1})
+        # print(tourn_regs)
+        # sorted_reg = sorted(tourn_regs.items(), key=lambda x:x[1], reverse=True)
+        # print(sorted_reg)
+        # sorted_reg = sorted_reg[:2]
+        # # for r in sorted_reg:
+        # #     players = TopRegDTO(r[0], r[1])
+        # # players = TopRegDTO(sorted_reg)
+        # # serializer = TournamentRegistrationSerializer(players, many=True)
+        # return Response(sorted_reg, status=status.HTTP_200_OK)
 

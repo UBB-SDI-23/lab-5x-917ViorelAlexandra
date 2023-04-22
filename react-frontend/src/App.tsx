@@ -26,6 +26,8 @@ import { TournamentRegDelete } from './components/tournamentRegistration/Tournam
 import { TournamentRegDetail } from './components/tournamentRegistration/TournamentRegistrationDetail';
 import { TournamentRegistrationShowAll } from './components/tournamentRegistration/TournamentRegistrationShowAll';
 import { TennisPlayerShowAvgExpCoach } from './components/tennisPlayer/TennisPlayerShowAvgExpCoach';
+import { TennisPlayerShowTop3GrandSlam } from './components/tennisPlayer/TennisPlayerStatisticTop3GS';
+import { CoachYoeFilter } from './components/coach/CoachYoeFilter';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -41,21 +43,28 @@ function App() {
           <Route path="/tennisplayers/:tennisPlayerId/delete" element={<TennisPlayerDelete />} />
           <Route path="/tennisplayers/add" element={<TennisPlayerAdd />} /> 
           <Route path="/tennisplayers/:tennisPlayerId/edit" element={<TennisPlayerUpdate />} />
+
           <Route path="/coaches/" element={<CoachShowAll/>} />
           <Route path="/coaches/:coachId" element={<CoachDetail />}/>
           <Route path="/coaches/:coachId/delete" element={<CoachDelete/>}/>
           <Route path="/coaches/add" element={<CoachAdd />} />
           <Route path="/coaches/:coachId/edit" element={<CoachUpdate/>}/>
+
           <Route path="/tournaments/" element={<TournamentShowAll/>}/>
           <Route path="/tournaments/:tournamentId" element={<TournamentDetail/>}/>
           <Route path="/tournaments/:tournamentId/delete" element={<TournamentDelete/>}/>
           <Route path="/tournaments/add" element={<TournamentAdd />}/>
           <Route path="/tournaments/:tournamentId/edit" element={<TournamentUpdate/>}/>
+
           <Route path="/tournamentregs/" element={<TournamentRegistrationShowAll/>}/>
           <Route path="/tournamentregs/:tournamentRegId" element={<TournamentRegDetail/>}/>
           <Route path="/tournamentregs/:tournamentRegId/delete" element={<TournamentRegDelete/>}/>
           <Route path="/tournamentregs/add" element={<TournamentRegistrationAdd/>}/>
-          <Route path="/tennisplayers/avgyoecoaches" element={<TennisPlayerShowAvgExpCoach />} />
+
+          <Route path="/statisticsplayers/avgyoe" element={<TennisPlayerShowAvgExpCoach />} />
+          <Route path="/statisticsplayers/grandslam" element={<TennisPlayerShowTop3GrandSlam />} />
+          <Route path="/statisticcoaches/yoe" element={<CoachYoeFilter />} />
+
         </Routes>
       </Router>
     </React.Fragment>

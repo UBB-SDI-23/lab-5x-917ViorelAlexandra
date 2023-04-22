@@ -29,18 +29,7 @@ export const TournamentShowAll = () => {
     const [tournaments, setTournaments] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
-
-    // useEffect(() => {
-    //     fetch(`${BACKEND_API_URL}/tennisplayer/`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setTennisPlayers(data);
-    //             setLoading(false);
-    //         }
-    //         );
-    // }, []);
-
-    // console.log(tennisPlayers);
+    const current = (page - 1) * pageSize + 1;
 
     const fetchTournaments = async() => {
         setLoading(true);
@@ -113,7 +102,7 @@ export const TournamentShowAll = () => {
                         {tournaments.map((tournament:Tournament, index) => (
                             <TableRow key={tournament.id}>
                                 <TableCell component="th" scope="row">
-                                    {index + 1}
+                                    {index + current}
                                 </TableCell>
                                 <TableCell align="center">{tournament.t_name}</TableCell>
                                 <TableCell align="center">{tournament.t_country}</TableCell>

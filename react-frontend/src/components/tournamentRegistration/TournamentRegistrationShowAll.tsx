@@ -31,18 +31,8 @@ export const TournamentRegistrationShowAll = () => {
     const [tournamentRegs, setTournamentRegs] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const current = (page - 1) * pageSize + 1;
 
-    // useEffect(() => {
-    //     fetch(`${BACKEND_API_URL}/tennisplayer/`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setTennisPlayers(data);
-    //             setLoading(false);
-    //         }
-    //         );
-    // }, []);
-
-    // console.log(tennisPlayers);
 
     const fetchTournamentRegs = async() => {
         setLoading(true);
@@ -91,7 +81,7 @@ export const TournamentRegistrationShowAll = () => {
                         {tournamentRegs.map((tournamentReg:TournamentRegistration, index) => (
                             <TableRow key={tournamentReg.id}>
                                 <TableCell component="th" scope="row">
-                                    {index + 1}
+                                    {index + current}
                                 </TableCell>
                                 <TableCell align="center">{tournamentReg.tr_registration_date}</TableCell>
                                 <TableCell align="center">{tournamentReg.tr_last_year_performance}</TableCell>

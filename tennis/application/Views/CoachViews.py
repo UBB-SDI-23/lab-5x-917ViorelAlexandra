@@ -88,9 +88,15 @@ class CoachInfo(APIView):
         obj.delete()
         return Response({"msg": "DELETED"}, status=status.HTTP_204_NO_CONTENT)
 
-class CoachesWithAtLeastNYearsExperience(APIView):
 
-    def get(self, request, yoe):
-        years_of_exp = Coach.objects.filter(c_years_of_experience__gt=yoe)
-        serializer = CoachSerializer(years_of_exp, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+class CoachesWithAtLeastNYearsExperience(generics.ListCreateAPIView):
+
+    serializer_class = CoachSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        min_yoe = self.kwargs.get("yoe")
+        queryset = Coach.objects.all()
+        if min_yoe is not None:
+            queryset = queryset.filter(c_years_of_experience__gte=min_yoe)
+        return queryset

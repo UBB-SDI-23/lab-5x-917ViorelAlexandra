@@ -10,6 +10,7 @@ import {
 	Container,
 	IconButton,
 	Tooltip,
+    Button
 } from "@mui/material";
 
 import EditIcon from "@mui/icons-material/Edit";
@@ -25,18 +26,34 @@ import { BACKEND_API_URL } from "../../constants";
 export const TennisPlayerShowAvgExpCoach = () => {
     const [loading, setLoading] = useState(true);
     const [tennisPlayers, setTennisPlayers] = useState([]);
+    const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+
+    // useEffect(() => {
+    //     fetch(`${BACKEND_API_URL}/playeravg/`)
+    //         .then(response => response.json())
+    //         .then(data => {
+    //             setTennisPlayers(data);
+    //             setLoading(false);
+    //         }
+    //         );
+    // }, []);
+
+    // console.log(tennisPlayers);
+
+    const fetchTennisPlayers = async() => {
+        setLoading(true);
+        const response = await fetch(
+            `${BACKEND_API_URL}/playeravg/?page=${page}&page_size=${pageSize}`
+        );
+        const {count, next, previous, results} = await response.json();
+        setTennisPlayers(results);
+        setLoading(false);
+    };
 
     useEffect(() => {
-        fetch(`${BACKEND_API_URL}/playeravg/`)
-            .then(response => response.json())
-            .then(data => {
-                setTennisPlayers(data);
-                setLoading(false);
-            }
-            );
-    }, []);
-
-    console.log(tennisPlayers);
+        fetchTennisPlayers();
+    }, [page]);
 
     return (
         <Container>
@@ -46,6 +63,7 @@ export const TennisPlayerShowAvgExpCoach = () => {
         {!loading && tennisPlayers.length == 0 && <div>No tennis players found!</div>}
 
         {!loading && tennisPlayers.length > 0 && (
+            <>
             <TableContainer component={Paper}>
                 <Table sx={{ minWidth: 900 }} aria-label="simple table">
                     <TableHead>
@@ -78,6 +96,9 @@ export const TennisPlayerShowAvgExpCoach = () => {
                 </TableBody>
                 </Table>
             </TableContainer>
+            <Button disabled={page === 1} onClick={() => setPage(page-1)}>Previous</Button>
+            <Button disabled={tennisPlayers.length < pageSize} onClick={() => setPage(page + 1)}>Next</Button>
+            </>
         )}
     </Container>
     )

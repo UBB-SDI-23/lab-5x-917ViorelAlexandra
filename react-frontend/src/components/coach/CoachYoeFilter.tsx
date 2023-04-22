@@ -10,45 +10,31 @@ import {
 	Container,
 	IconButton,
 	Tooltip,
-    Button
+    Button,
+    TextField
 } from "@mui/material";
 
-import { useEffect, useState } from "react";
-import { Coach } from "../../models/Coach";
-import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+
+import { Coach } from "../../models/Coach";
 import { BACKEND_API_URL } from "../../constants";
 
 
-
-export const CoachShowAll = () => {
+export const CoachYoeFilter = () => {
     const [loading, setLoading] = useState(true);
     const [coaches, setCoaches] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const current = (page - 1) * pageSize + 1;
-
-
-    // useEffect(() => {
-    //     fetch(`${BACKEND_API_URL}/tennisplayer/`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setTennisPlayers(data);
-    //             setLoading(false);
-    //         }
-    //         );
-    // }, []);
-
-    // console.log(tennisPlayers);
+    const [yoeFilter, setYoeFilter] = useState("");
 
     const fetchCoaches = async() => {
         setLoading(true);
-        const response = await fetch(
-            `${BACKEND_API_URL}/coach?page=${page}&page_size=${pageSize}`
-        );
+        let url = `${BACKEND_API_URL}/yearsofexp/${yoeFilter}/?page=${page}&page_size=${pageSize}`;
+        const response = await fetch(url);
         const {count, next, previous, results} = await response.json();
         setCoaches(results);
         setLoading(false);
@@ -58,42 +44,27 @@ export const CoachShowAll = () => {
         fetchCoaches();
     }, [page]);
 
-    const sortCoaches = () => {
-        const sortedCoaches = [...coaches].sort((a: Coach, b:Coach) => {
-            if (a.c_years_of_experience < b.c_years_of_experience) {
-                return -1;
-            }
-            if (a.c_years_of_experience > b.c_years_of_experience) {
-                return 1;
-            }
-            return 0;
-
-        })
-        console.log(sortedCoaches);
-        setCoaches(sortedCoaches);
-    }
-
-  
     return (
         <Container>
-        <h1 style={{marginTop:"65px"}}>All Coaches</h1>
+        <h1>All Coaches Filtered By YOE</h1>
+
+        <div style={{ display: "flex", alignItems: "center", marginBottom: "16px" }}>
+        <TextField 
+          label="Years of Experience"
+          value={yoeFilter}
+          onChange={(e) => setYoeFilter(e.target.value)}
+          InputProps={{ style: { color: "whitesmoke" } }}
+          InputLabelProps={{style: {color: 'whitesmoke'}}}
+          style={{ marginRight: "16px", color:'whitesmoke' }}
+        />
+        <Button variant="contained" style={{color:"whitesmoke"}} onClick={() => fetchCoaches()}>
+          Filter
+        </Button>
+        </div>
+
         {loading && <CircularProgress />}
 
         {!loading && coaches.length == 0 && <div>No coaches found!</div>}
-
-        {!loading && (
-            <IconButton component={Link} sx={{ mr: 3 }} to={`/coaches/add`}>
-                        <Tooltip title="Add a new coach" arrow>
-                            <AddCircleIcon color="primary" />
-                        </Tooltip>
-                    </IconButton>
-        )}
-
-        {!loading && (
-            <Button sx={{color:"red"}} onClick={sortCoaches}>
-                Sort coaches
-            </Button>
-        )}
 
         {!loading && coaches.length > 0 && (
             <>
@@ -107,7 +78,6 @@ export const CoachShowAll = () => {
                             <TableCell align="center">Date Of Birth</TableCell>
                             <TableCell align="center">Years of experience</TableCell>
                             <TableCell align="center">Email</TableCell>
-                            <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -121,24 +91,6 @@ export const CoachShowAll = () => {
                                 <TableCell align="center">{coach.c_date_of_birth}</TableCell>
                                 <TableCell align="center">{coach.c_years_of_experience}</TableCell>
                                 <TableCell align="center">{coach.c_email}</TableCell>
-                                <TableCell align="right">
-										<IconButton
-											component={Link}
-											sx={{ mr: 3 }}
-											to={`/coaches/${coach.id}`}>
-											<Tooltip title="View coach details" arrow>
-												<ReadMoreIcon color="primary" />
-											</Tooltip>
-										</IconButton>
-
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/coaches/${coach.id}/edit`}>
-											<EditIcon />
-										</IconButton>
-
-										<IconButton component={Link} sx={{ mr: 3 }} to={`/coaches/${coach.id}/delete`}>
-											<DeleteForeverIcon sx={{ color: "red" }} />
-										</IconButton>
-									</TableCell>
                             </TableRow>
                         ))}
                 </TableBody>
@@ -149,5 +101,5 @@ export const CoachShowAll = () => {
             </>
         )}
     </Container>
-    );
-  };
+    )
+}
