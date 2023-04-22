@@ -5,6 +5,7 @@ from .models import TennisPlayer, Coach, Tournament, TournamentRegistration
 class TennisPlayerSerializer(serializers.ModelSerializer):
 
     avg_yoe_coach = serializers.FloatField(read_only=True)
+    nb_coaches = serializers.IntegerField(read_only=True)
 
     class Meta:
         model = TennisPlayer

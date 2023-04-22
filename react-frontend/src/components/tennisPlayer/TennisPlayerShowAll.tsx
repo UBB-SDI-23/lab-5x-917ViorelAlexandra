@@ -31,18 +31,6 @@ export const TennisPlayerShowAll = () => {
     const [pageSize, setPageSize] = useState(10);
     const current = (page - 1) * pageSize + 1;
 
-    // useEffect(() => {
-    //     fetch(`${BACKEND_API_URL}/tennisplayer/`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setTennisPlayers(data);
-    //             setLoading(false);
-    //         }
-    //         );
-    // }, []);
-
-    // console.log(tennisPlayers);
-
     const fetchTennisPlayers = async() => {
         setLoading(true);
         const response = await fetch(
@@ -107,6 +95,7 @@ export const TennisPlayerShowAll = () => {
                             <TableCell align="center">Date Of Birth</TableCell>
                             <TableCell align="center">Country</TableCell>
                             <TableCell align="center">Gender</TableCell>
+                            <TableCell align="center">Nb of coaches</TableCell>
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>
@@ -122,6 +111,7 @@ export const TennisPlayerShowAll = () => {
                                 <TableCell align="center">{tennisPlayer.tp_date_of_birth}</TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_country}</TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_gender}</TableCell>
+                                <TableCell align="center">{tennisPlayer.nb_coaches}</TableCell>
                                 <TableCell align="right">
 										<IconButton
 											component={Link}

@@ -1,4 +1,4 @@
-from django.db.models import Avg
+from django.db.models import Avg, Count
 from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -32,7 +32,7 @@ class TennisPlayerListCreateView(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = TennisPlayer.objects.all()
+        queryset = TennisPlayer.objects.all().annotate(nb_coaches=Count('coaches'))
         #print(queryset.explain())
         return queryset
 
