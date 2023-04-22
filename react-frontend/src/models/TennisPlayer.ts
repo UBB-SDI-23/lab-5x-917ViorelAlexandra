@@ -7,7 +7,6 @@ export interface TennisPlayer {
     tp_country: string;
     tp_gender: string;
     nb_coaches: number;
-    nb_registers: number;
     tournaments: number[];
     coaches: number[];
 }
