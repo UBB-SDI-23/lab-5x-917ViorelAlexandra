@@ -167,3 +167,15 @@ class PlayersRegisteredInGrandSlams(generics.ListCreateAPIView):
         # # serializer = TournamentRegistrationSerializer(players, many=True)
         # return Response(sorted_reg, status=status.HTTP_200_OK)
 
+class TennisPlayerOrderedByName(generics.ListCreateAPIView):
+    serializer_class = TennisPlayerSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        p_last_name = self.kwargs.get("p_last_name")
+        queryset = TennisPlayer.objects.all()
+        if p_last_name is not None:
+            queryset = queryset.filter(tp_last_name__icontains=p_last_name)
+        print(queryset.explain())
+        print(p_last_name)
+        return queryset

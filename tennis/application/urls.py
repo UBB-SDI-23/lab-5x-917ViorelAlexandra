@@ -2,9 +2,9 @@ from django.urls import path
 
 from .Views.CoachViews import CoachListCreateView, CoachInfo, CoachesWithAtLeastNYearsExperience
 from .Views.TennisPlayerViews import TennisPlayerListCreateView, TennisPlayerInfo, TennisPlayerCoachListInfo, \
-    PlayersByAvgYearsOfExperienceOfCoaches, PlayersRegisteredInGrandSlams
+    PlayersByAvgYearsOfExperienceOfCoaches, PlayersRegisteredInGrandSlams, TennisPlayerOrderedByName
 from .Views.TournamentRegistrationViews import TournamentRegistrationListCreateView, TournamentRegistrationInfo
-from .Views.TournamentViews import TournamentInfo, TournamentListCreateView
+from .Views.TournamentViews import TournamentInfo, TournamentListCreateView, TournamentOrderedByName
 
 urlpatterns = [
 
@@ -20,4 +20,6 @@ urlpatterns = [
     path("tournamentreg/<int:id>/", TournamentRegistrationInfo.as_view()),
     path("playeravg/", PlayersByAvgYearsOfExperienceOfCoaches.as_view()),
     path("playergs/", PlayersRegisteredInGrandSlams.as_view()),
+    path("playerOrdName/<str:p_last_name>/", TennisPlayerOrderedByName.as_view()),
+    path("tournamentOrdName/<str:name>/", TournamentOrderedByName.as_view()),
 ]

@@ -1,10 +1,12 @@
-import { Button, Card, CardActions, CardContent, Container, IconButton, TextField } from "@mui/material";
-import { useState } from "react";
+import { Autocomplete, Button, Card, CardActions, CardContent, Container, IconButton, TextField } from "@mui/material";
+import { useState, useCallback, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { Coach } from "../../models/Coach";
+import { TennisPlayer } from "../../models/TennisPlayer";
 import { BACKEND_API_URL } from "../../constants";
+import { debounce } from "lodash";
 
 export const CoachAdd = () => {
     const navigate = useNavigate();
@@ -17,6 +19,29 @@ export const CoachAdd = () => {
         c_description:"",
         player: 1,
     });
+	const [page, setPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
+	const [players, setPlayers] = useState<TennisPlayer[]>([]);
+
+	const fetchSuggestions = async (query: string) => {
+		try {
+			let url = `${BACKEND_API_URL}/playerOrdName/${query}/?page=${page}&page_size=${pageSize}`;
+			const response = await fetch(url);
+			const {count, next, previous, results} = await response.json();
+			setPlayers(results);
+			console.log(results);
+		} catch (error) {
+			console.error("Error fetching suggestions:", error);
+		}
+	}
+
+	const debouncedFetchSuggestions = useCallback(debounce(fetchSuggestions, 500), []);
+
+	useEffect(() => {
+		return () => {
+			debouncedFetchSuggestions.cancel();
+		};
+	}, [debouncedFetchSuggestions]);
 
     const addCoach =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
@@ -27,6 +52,13 @@ export const CoachAdd = () => {
             console.log(error);
         }
     };
+
+	const handleInputChange = (event: any, value: any, reason: any) => {
+		console.log("input", value, reason);
+		if (reason === "input") {
+			debouncedFetchSuggestions(value);
+		}
+	};
 
     return (
         <Container>
@@ -89,13 +121,19 @@ export const CoachAdd = () => {
 							onChange={(event) => setCoach({ ...coach, c_description: event.target.value })}
 						/>
 
-                        <TextField
+						<Autocomplete
 							id="player"
-							label="Player"
-							variant="outlined"
-							fullWidth
-							sx={{ mb: 2 }}
-							onChange={(event) => setCoach({ ...coach, player: Number(event.target.value) })}
+							options={players}
+							renderInput={(params) => <TextField {...params} label="Player" variant="outlined" />}
+							getOptionLabel={(option) => `${option.tp_last_name} - ${option.tp_first_name}`}
+							filterOptions={(options, state) => options.filter((option) => option.tp_last_name.toLowerCase().includes(state.inputValue.toLowerCase()))}
+							onInputChange={handleInputChange}
+							onChange={(event, value) => {
+								if (value) {
+									console.log(value);
+									setCoach({...coach, player: value.id})
+								}
+							}}
 						/>
 
 						<Button type="submit">Add Coach</Button>

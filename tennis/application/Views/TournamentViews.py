@@ -95,3 +95,17 @@ class TournamentInfo(APIView):
 
         obj.delete()
         return Response({"msg": "DELETED"}, status=status.HTTP_204_NO_CONTENT)
+
+
+class TournamentOrderedByName(generics.ListCreateAPIView):
+    serializer_class = TournamentSerializer
+    pagination_class = CustomPagination
+
+    def get_queryset(self):
+        name = self.kwargs.get("name")
+        queryset = Tournament.objects.all()
+        if name is not None:
+            queryset = queryset.filter(t_name__icontains=name)
+        print(queryset.explain())
+        print(name)
+        return queryset
