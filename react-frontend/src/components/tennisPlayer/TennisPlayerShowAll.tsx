@@ -95,7 +95,7 @@ export const TennisPlayerShowAll = () => {
                             <TableCell align="center">Date Of Birth</TableCell>
                             <TableCell align="center">Country</TableCell>
                             <TableCell align="center">Gender</TableCell>
-                            <TableCell align="center">Nb of coaches</TableCell>
+                            <TableCell align="center">Number of coaches</TableCell>
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>

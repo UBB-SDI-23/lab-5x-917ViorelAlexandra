@@ -6,6 +6,7 @@ export interface TennisPlayer {
     tp_date_of_birth: string;
     tp_country: string;
     tp_gender: string;
+    nb_coaches: number;
     tournaments: number[];
     coaches: number[];
 }
