@@ -22,9 +22,6 @@ export const CoachAdd = () => {
 	const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
 	const [players, setPlayers] = useState<TennisPlayer[]>([]);
-	const [totalPages, setTotalPages] = useState(0);
-	const [query, setQuery] = useState("");
-	const inputRef = useRef(null);
 
 	const fetchSuggestions = async (query: string) => {
 		try {
@@ -32,7 +29,6 @@ export const CoachAdd = () => {
 			const response = await fetch(url);
 			const {count, next, previous, results} = await response.json();
 			setPlayers(results);
-			setQuery(query);
 			console.log(results);
 		} catch (error) {
 			console.error("Error fetching suggestions:", error);
@@ -61,7 +57,6 @@ export const CoachAdd = () => {
 		console.log("input", value, reason);
 		if (reason === "input") {
 			debouncedFetchSuggestions(value);
-			setQuery(value);
 		}
 	};
 
