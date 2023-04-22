@@ -65,13 +65,13 @@ export const AppMenu = () => {
 						Registrations 
 					</Button>
 					<Button
-						variant={path.startsWith("/tennisplayers") ? "outlined" : "text"}
-						to="/tennisplayers/avgyoecoaches"
+						variant={path.startsWith("/allstats") ? "outlined" : "text"}
+						to="/allstats"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
 						startIcon={<InsightsIcon />}>
-						Players Ordered By Avg Experience Coach
+						Statistics
 					</Button>
 				</Toolbar>
 			</AppBar>

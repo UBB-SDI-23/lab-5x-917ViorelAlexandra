@@ -28,6 +28,7 @@ import { TournamentRegistrationShowAll } from './components/tournamentRegistrati
 import { TennisPlayerShowAvgExpCoach } from './components/tennisPlayer/TennisPlayerShowAvgExpCoach';
 import { TennisPlayerShowTop3GrandSlam } from './components/tennisPlayer/TennisPlayerStatisticTop3GS';
 import { CoachYoeFilter } from './components/coach/CoachYoeFilter';
+import { Statistics } from './components/Statistics';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -61,6 +62,7 @@ function App() {
           <Route path="/tournamentregs/:tournamentRegId/delete" element={<TournamentRegDelete/>}/>
           <Route path="/tournamentregs/add" element={<TournamentRegistrationAdd/>}/>
 
+          <Route path="/allstats" element={<Statistics />} />
           <Route path="/statisticsplayers/avgyoe" element={<TennisPlayerShowAvgExpCoach />} />
           <Route path="/statisticsplayers/grandslam" element={<TennisPlayerShowTop3GrandSlam />} />
           <Route path="/statisticcoaches/yoe" element={<CoachYoeFilter />} />
