@@ -51,7 +51,7 @@ class Tournament(models.Model):
 
     class Meta:
         ordering = ['id']
-        indexes = [models.Index(fields=["t_type", "id"]), models.Index(fields="t_name")]
+        indexes = [models.Index(fields=["t_type", "id"]), models.Index(fields=["t_name"])]
 
 
 class TournamentRegistration(models.Model):
