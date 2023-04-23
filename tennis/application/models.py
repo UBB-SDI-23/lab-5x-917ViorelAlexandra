@@ -17,7 +17,7 @@ class TennisPlayer(models.Model):
 
     class Meta:
         ordering = ['id']
-        indexes = [models.Index(fields=["tp_las_name"])]
+        indexes = [models.Index(fields=["tp_last_name"])]
 
 
 class Coach(models.Model):
