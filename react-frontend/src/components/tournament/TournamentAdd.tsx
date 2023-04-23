@@ -21,9 +21,14 @@ export const TournamentAdd = () => {
     const addTournament =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
         try {
-            await axios.post(`${BACKEND_API_URL}/tournament/`, tournament);
-            navigate("/tournaments");
+            const response = await axios.post(`${BACKEND_API_URL}/tournament/`, tournament);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occured while adding the tournament!");
+			} else {
+				navigate("/tournaments");
+			}
         } catch (error) {
+			toast.error((error as {message: string}).message);
             console.log(error);
         }
     };
@@ -79,6 +84,8 @@ export const TournamentAdd = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setTournament({ ...tournament, t_type: event.target.value })}
 						/>
+
+						<ToastContainer />
 
 						<Button type="submit">Add Tournament</Button>
 					</form>

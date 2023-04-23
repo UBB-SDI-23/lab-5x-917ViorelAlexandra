@@ -6,6 +6,8 @@ import axios from "axios";
 import { Tournament } from "../../models/Tournament";
 import { TournamentFull } from "../../models/TournamentFull";
 import { BACKEND_API_URL } from "../../constants";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const TournamentUpdate = () => {
     const navigate = useNavigate();
@@ -40,9 +42,15 @@ export const TournamentUpdate = () => {
     const updateTournament =async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.put(`${BACKEND_API_URL}/tournament/${tournamentId}/`, tournament);
-            navigate(`/tournaments/${tournamentId}`);
+            const response = await axios.put(`${BACKEND_API_URL}/tournament/${tournamentId}/`, tournament);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occured while updating the tournament!");
+			} else {
+				navigate(`/tournaments/${tournamentId}`);
+			}
         } catch (error) {
+			toast.error((error as {message: string}).message);
+
             console.log(error);
         }
     };
@@ -98,6 +106,9 @@ export const TournamentUpdate = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setTournament({ ...tournament, t_type: event.target.value })}
 						/>
+
+						<ToastContainer />
+
 
 						<Button type="submit">Update Tournament</Button>
 					</form>

@@ -8,6 +8,8 @@ import { CoachFull } from "../../models/CoachFull";
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { BACKEND_API_URL } from "../../constants";
 import { debounce } from "lodash";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const CoachUpdate = () => {
     const navigate = useNavigate();
@@ -67,9 +69,17 @@ export const CoachUpdate = () => {
     const updateCoach =async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.put(`${BACKEND_API_URL}/coach/${coachId}/`, coach);
-            navigate(`/coaches/${coachId}`);
+			if (coach.c_years_of_experience < 0) {
+				throw new Error("Years of experience must be at least 0!");
+			}
+            const response = await axios.put(`${BACKEND_API_URL}/coach/${coachId}/`, coach);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occured while adding the coach!");
+			} else {
+				navigate(`/coaches/${coachId}`);
+			}
         } catch (error) {
+			toast.error((error as {message: string}).message);
             console.log(error);
         }
     };
@@ -157,6 +167,8 @@ export const CoachUpdate = () => {
 								}
 							}}
 						/>
+
+						<ToastContainer />
 
 						<Button type="submit">Update Coach</Button>
 					</form>

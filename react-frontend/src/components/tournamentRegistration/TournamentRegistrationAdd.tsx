@@ -8,6 +8,8 @@ import { Tournament } from "../../models/Tournament";
 import { TournamentRegistration } from "../../models/TournamentRegistration";
 import { BACKEND_API_URL } from "../../constants";
 import { debounce } from "lodash";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const TournamentRegistrationAdd = () => {
     const navigate = useNavigate();
@@ -66,9 +68,14 @@ export const TournamentRegistrationAdd = () => {
     const addTournamentRegistration =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
         try {
-            await axios.post(`${BACKEND_API_URL}/tournamentreg/`, tournamentReg);
-            navigate("/tournamentregs");
+            const response = await axios.post(`${BACKEND_API_URL}/tournamentreg/`, tournamentReg);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occured while adding the coach!");
+			} else {
+				navigate("/tournamentregs");
+			}
         } catch (error) {
+			toast.error((error as {message: string}).message);
             console.log(error);
         }
     };
@@ -141,6 +148,8 @@ export const TournamentRegistrationAdd = () => {
 								}
 							}}
 						/>
+
+						<ToastContainer />
 
 						<Button type="submit">Add Registration</Button>
 					</form>

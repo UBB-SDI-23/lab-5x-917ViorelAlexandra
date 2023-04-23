@@ -52,7 +52,7 @@ export const TennisPlayerUpdate = () => {
 			}
 			const response = await axios.put(`${BACKEND_API_URL}/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
 			if (response.status < 200 || response.status >= 300) {
-				throw new Error("An error occured while adding the tennis player!");
+				throw new Error("An error occured while updating the tennis player!");
 			} else {
 				navigate(`/tennisplayers/${tennisPlayerId}`);
 			}
@@ -122,6 +122,9 @@ export const TennisPlayerUpdate = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setTennisPlayer({ ...tennisPlayer, tp_gender: event.target.value })}
 						/>
+
+						<ToastContainer />
+
 
 						<Button type="submit">Update Tennis Player</Button>
 					</form>
