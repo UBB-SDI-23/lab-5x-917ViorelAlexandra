@@ -11,15 +11,30 @@ class TennisPlayerSerializer(serializers.ModelSerializer):
         model = TennisPlayer
         fields = "__all__"
 
-    def validate(self, value):
+    def validate_gender(self, value):
         if value['tp_gender'] not in ['M', 'F']:
-            raise serializers.ValidationError("Gender must be female or male!")
+            raise serializers.ValidationError("Gender must be F or M!")
+        return value
+
+    def validate_rank(self, value):
+        if value['tp_rank'] < 1:
+            raise serializers.ValidationError("Rank must be greater than 0!")
         return value
 
 
 class TennisPlayerIdSerializer(serializers.ModelSerializer):
 
     avg_yoe_coach = serializers.FloatField(read_only=True)
+
+    def validate_gender(self, value):
+        if value['tp_gender'] not in ['M', 'F']:
+            raise serializers.ValidationError("Gender must be F or M!")
+        return value
+
+    def validate_rank(self, value):
+        if value['tp_rank'] < 1:
+            raise serializers.ValidationError("Rank must be greater than 0!")
+        return value
 
     class Meta:
         model = TennisPlayer
@@ -46,6 +61,10 @@ class CoachSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Tennis player does not exist!")
         return value
 
+    def validate_years_of_experience(self, value):
+        if value['c_years_of_experience'] < 0:
+            raise serializers.ValidationError("Years of experience must be at least 0!")
+
 
 class CoachIdSerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,6 +77,10 @@ class CoachIdSerializer(serializers.ModelSerializer):
         if not filter.exists():
             raise serializers.ValidationError("Tennis player does not exist!")
         return value
+
+    def validate_years_of_experience(self, value):
+        if value['c_years_of_experience'] < 0:
+            raise serializers.ValidationError("Years of experience must be at least 0!")
 
 
 class TournamentSerializer(serializers.ModelSerializer):

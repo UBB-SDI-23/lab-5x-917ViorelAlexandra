@@ -5,6 +5,8 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import axios from "axios";
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { BACKEND_API_URL } from "../../constants";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const TennisPlayerAdd = () => {
     const navigate = useNavigate();
@@ -20,9 +22,20 @@ export const TennisPlayerAdd = () => {
     const addTennisPlayer =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
         try {
-            await axios.post(`${BACKEND_API_URL}/tennisplayer/`, tennisPlayer);
-            navigate("/tennisplayers");
+			if (tennisPlayer.tp_gender != 'M' && tennisPlayer.tp_gender != 'F') {
+				throw new Error("Gender must be M or F!");
+			}
+			if (tennisPlayer.tp_rank < 1) {
+				throw new Error("Rank must be at least 1!");
+			}
+			const response = await axios.post(`${BACKEND_API_URL}/tennisplayer/`, tennisPlayer);
+            if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occured while adding the tennis player!");
+			} else {
+				navigate("/tennisplayers");
+			}
         } catch (error) {
+			toast.error((error as {message: string}).message);
             console.log(error);
         }
     };
@@ -87,6 +100,8 @@ export const TennisPlayerAdd = () => {
 							sx={{ mb: 2 }}
 							onChange={(event) => setTennisPlayer({ ...tennisPlayer, tp_gender: event.target.value })}
 						/>
+
+						<ToastContainer />
 
 						<Button type="submit">Add Tennis Player</Button>
 					</form>

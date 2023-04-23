@@ -6,6 +6,8 @@ import axios from "axios";
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { TennisPlayerFull } from "../../models/TennisPlayerFull";
 import { BACKEND_API_URL } from "../../constants";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const TennisPlayerUpdate = () => {
     const navigate = useNavigate();
@@ -42,9 +44,20 @@ export const TennisPlayerUpdate = () => {
     const updateTennisPlayer =async (event: { preventDefault: () => void }) => {
         event.preventDefault();
         try {
-            await axios.put(`${BACKEND_API_URL}/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
-            navigate(`/tennisplayers/${tennisPlayerId}`);
+			if (tennisPlayer.tp_gender != 'M' && tennisPlayer.tp_gender != 'F') {
+				throw new Error("Gender must be M or F!");
+			}
+			if (tennisPlayer.tp_rank < 1) {
+				throw new Error("Rank must be at least 1!");
+			}
+			const response = await axios.put(`${BACKEND_API_URL}/tennisplayer/${tennisPlayerId}/`, tennisPlayer);
+			if (response.status < 200 || response.status >= 300) {
+				throw new Error("An error occured while adding the tennis player!");
+			} else {
+				navigate(`/tennisplayers/${tennisPlayerId}`);
+			}
         } catch (error) {
+			toast.error((error as {message: string}).message);
             console.log(error);
         }
     };
