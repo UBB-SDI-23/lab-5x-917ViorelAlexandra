@@ -86,21 +86,21 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
     return (
         <div className='pagination'>
 
-            {/* <button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</button>
-            <button className='floating' disabled={isFirstPage} onClick={() => goToPrevPage()}>Prev</button>
+            {/* <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
+            <Button className='floating' disabled={isFirstPage} onClick={() => goToPrevPage()}>Prev</Button>
 
             <span className='floating'>
                 Page <input onChange={(event) => debounceOnChange(Number(event.target.value))} type="number" className='page-input' defaultValue={currentPage} /> of <strong>{totalPages}</strong>
             </span>
 
-            <button className='floating' disabled={isLastPage} onClick={() => goToNextPage()}>Next</button>
-            <button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</button> */}
+            <Button className='floating' disabled={isLastPage} onClick={() => goToNextPage()}>Next</Button>
+            <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button> */}
 
-        <button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</button>
 
         {visiblePages.map((page, index) => (
         <React.Fragment key={index}>
-          
+            <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
+
             <Button
               variant={page === currentPage ? "contained" : "outlined"}
               disabled={page==="..."}
@@ -108,10 +108,10 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
             >
               {page}
             </Button>
-          
+            <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button>
+
         </React.Fragment>
       ))}
-        <button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</button>
         </div >
     )
 }
