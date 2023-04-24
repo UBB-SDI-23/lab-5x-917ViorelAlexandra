@@ -141,8 +141,7 @@ class PlayersRegisteredInGrandSlams(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = TennisPlayer.objects.filter(tournaments__tr_tournament__t_type='Grand Slam')\
-            .order_by('tp_rank')[:3]
+        queryset = TennisPlayer.objects.filter(tournaments__tr_tournament__t_type='Grand Slam')
         return queryset
 
 
