@@ -141,7 +141,7 @@ class PlayersRegisteredInGrandSlams(generics.ListCreateAPIView):
     pagination_class = CustomPagination
 
     def get_queryset(self):
-        queryset = TennisPlayer.objects.filter(tournaments__t_type='Grand Slam')
+        queryset = TennisPlayer.objects.filter(tournaments__t_type='Grand Slam').distinct()
         return queryset
 
 
