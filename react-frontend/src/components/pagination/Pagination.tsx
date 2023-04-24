@@ -18,7 +18,7 @@ export interface PaginatorProps {
 export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, isLastPage, setPage, goToNextPage, goToPrevPage }: PaginatorProps) => {
 
     const totalPages = Math.ceil(totalRows / rowsPerPage);
-    const pageRange = 11;
+    const pageRange = 5;
 
     const changeCurrentPage = (pageNumber: number) => {
         if (pageNumber < 1) {
