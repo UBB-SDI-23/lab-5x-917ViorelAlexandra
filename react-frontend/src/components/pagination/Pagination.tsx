@@ -73,10 +73,12 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
           if (end < totalPages-4) {
             pageNumbers.push("...");
           }
-    
-          for (let i = totalPages-4; i <= Math.max(end, totalPages); ++i) {
-            pageNumbers.push(i);
+          if (currentPage > totalPages - 4) {
+            for (let i = totalPages-4; i <= Math.max(end, totalPages); ++i) {
+                pageNumbers.push(i);
+              }
           }
+
     
         }
     
