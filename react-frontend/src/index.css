@@ -67,3 +67,40 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+.pagination {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+.pagination .floating {
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin-right: 2px;
+  /* background-color: rgb(8, 97, 169)  !important; */
+  background-color: none !important;
+}
+
+.pagination span{
+  font-weight: bold;
+}
+
+.page-input {
+  max-width: 50px;
+  text-align: center;
+  padding-top: 5px;
+  background-color: rgb(49, 115, 168)  !important;
+}
+
+.pagination button{
+  background-color: rgb(49, 115, 168)  !important;
+  color: white;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
