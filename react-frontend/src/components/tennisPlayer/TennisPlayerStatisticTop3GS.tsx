@@ -97,7 +97,7 @@ export const TennisPlayerShowTop3GrandSlam = () => {
                         {tennisPlayers.map((tennisPlayer:TennisPlayer, index) => (
                             <TableRow key={tennisPlayer.id}>
                                 <TableCell component="th" scope="row">
-                                    {index + 1}
+                                    {index + current}
                                 </TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_first_name}</TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_last_name}</TableCell>
