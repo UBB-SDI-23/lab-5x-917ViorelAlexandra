@@ -96,10 +96,10 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
             <Button className='floating' disabled={isLastPage} onClick={() => goToNextPage()}>Next</Button>
             <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button> */}
 
+        <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
 
         {visiblePages.map((page, index) => (
         <React.Fragment key={index}>
-            <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
 
             <Button
               variant={page === currentPage ? "contained" : "outlined"}
@@ -108,10 +108,12 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
             >
               {page}
             </Button>
-            <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button>
 
         </React.Fragment>
       ))}
+
+        <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button>
+
         </div >
     )
 }
