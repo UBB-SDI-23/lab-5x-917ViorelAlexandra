@@ -19,12 +19,7 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
 
     const totalPages = Math.ceil(totalRows / rowsPerPage);
     const pageRange = 5;
-    const numberOfPages = 5;
-    let dots: number = 0;
-    const hardPagesFirst = Array.from({ length: numberOfPages }, (_, index) => index + 1);
-    const hardPagesLast = Array.from({ length: numberOfPages }, (_, index) => totalPages - index).reverse();
 
-    let pages: number[] = [];
 
     const changeCurrentPage = (pageNumber: number) => {
         if (pageNumber < 1) {
@@ -48,7 +43,7 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
         };
     }, [debounceOnChange])
 
-    const visiblePages = useMemo(() => {
+    const listOfPages = useMemo(() => {
         const pageNumbers = [];
     
         debugger;
@@ -106,7 +101,7 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
 
         <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
 
-        {visiblePages.map((page, index) => (
+        {listOfPages.map((page, index) => (
         <React.Fragment key={index}>
 
             <Button
