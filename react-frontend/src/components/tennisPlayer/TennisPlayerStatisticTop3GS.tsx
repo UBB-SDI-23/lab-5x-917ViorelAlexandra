@@ -35,6 +35,7 @@ export const TennisPlayerShowTop3GrandSlam = () => {
             `${BACKEND_API_URL}/playergs/?page=${page}&page_size=${pageSize}`
         );
         const {count, next, previous, results} = await response.json();
+        console.log(results);
         setTennisPlayers(results);
         setLoading(false);
     };
