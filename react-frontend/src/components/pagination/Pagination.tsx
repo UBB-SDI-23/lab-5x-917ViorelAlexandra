@@ -104,7 +104,7 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
             <Button className='floating' disabled={isLastPage} onClick={() => goToNextPage()}>Next</Button>
             <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button> */}
 
-        {/* <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
+        <Button className='floating' disabled={isFirstPage} onClick={() => setPage(1)}>First</Button>
 
         {visiblePages.map((page, index) => (
         <React.Fragment key={index}>
@@ -120,30 +120,9 @@ export const Paginator = ({ rowsPerPage, totalRows, currentPage, isFirstPage, is
         </React.Fragment>
       ))}
 
-        <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button> */}
+        <Button className='floating' disabled={isLastPage} onClick={() => setPage(totalPages)}>Last</Button>
 
-            <Button className={currentPage === 1 ? 'active floating' : 'floating'} onClick={() => setPage(1)}>1</Button>
-            <Button className={currentPage === 2 ? 'active floating' : 'floating'} onClick={() => setPage(2)}>2</Button>
-            <Button className={currentPage === 3 ? 'active floating' : 'floating'} onClick={() => setPage(3)}>3</Button>
-            <Button className={currentPage === 4 ? 'active floating' : 'floating'} onClick={() => setPage(4)}>4</Button>
-            <Button className={currentPage === 5 ? 'active floating' : 'floating'} onClick={() => setPage(5)}>5</Button>
-
-            {(dots == -1 || dots == 0) && <span className='floating'>...</span>}
-
-            {pages.map((page) => (
-                <Button className={currentPage === page ? 'active floating' : 'floating'} onClick={() => setPage(page)}>{page}</Button>
-            ))}
-
-
-            {(dots == 1 || dots == 0) && <span className='floating'>...</span>}
-
-
-            <Button className={currentPage === totalPages - 4 ? 'active floating' : 'floating'} onClick={() => setPage(totalPages - 4)}>{totalPages - 2}</Button>
-            <Button className={currentPage === totalPages - 3 ? 'active floating' : 'floating'} onClick={() => setPage(totalPages - 3)}>{totalPages - 3}</Button>
-            <Button className={currentPage === totalPages - 2 ? 'active floating' : 'floating'} onClick={() => setPage(totalPages - 2)}>{totalPages - 4}</Button>
-            <Button className={currentPage === totalPages - 1 ? 'active floating' : 'floating'} onClick={() => setPage(totalPages - 1)}>{totalPages - 1}</Button>
-            <Button className={currentPage === totalPages ? 'active floating' : 'floating'} onClick={() => setPage(totalPages)}>{totalPages}</Button>
-
+            
         </div >
     )
 }
