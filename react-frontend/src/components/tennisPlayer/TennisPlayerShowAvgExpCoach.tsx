@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import { TennisPlayer } from "../../models/TennisPlayer";
 import { TennisPlayerStatistic } from "../../models/TennisPlayerStatistic";
 import { BACKEND_API_URL } from "../../constants";
+import { Paginator } from "../pagination/Pagination";
 
 
 export const TennisPlayerShowAvgExpCoach = () => {
@@ -28,18 +29,29 @@ export const TennisPlayerShowAvgExpCoach = () => {
     const [tennisPlayers, setTennisPlayers] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
+    const current = (page - 1) * pageSize + 1;
+    const [isLastPage, setIsLastPage] = useState(false);
+    const [totalRows, setTotalRows] = useState(0);
 
-    // useEffect(() => {
-    //     fetch(`${BACKEND_API_URL}/playeravg/`)
-    //         .then(response => response.json())
-    //         .then(data => {
-    //             setTennisPlayers(data);
-    //             setLoading(false);
-    //         }
-    //         );
-    // }, []);
+    const setCurrentPage = (newPage: number) => {
+        setPage(newPage);
+    }
 
-    // console.log(tennisPlayers);
+    const goToNextPage = () => {
+        if (isLastPage) {
+            return;
+        }
+
+        setPage(page + 1);
+    }
+
+    const goToPrevPage = () => {
+        if (page === 1) {
+            return;
+        }
+
+        setPage(page - 1);
+    }
 
     const fetchTennisPlayers = async() => {
         setLoading(true);
@@ -48,6 +60,8 @@ export const TennisPlayerShowAvgExpCoach = () => {
         );
         const {count, next, previous, results} = await response.json();
         setTennisPlayers(results);
+        setTotalRows(count);
+        setIsLastPage(!next);
         setLoading(false);
     };
 
@@ -96,8 +110,16 @@ export const TennisPlayerShowAvgExpCoach = () => {
                 </TableBody>
                 </Table>
             </TableContainer>
-            <Button disabled={page === 1} onClick={() => setPage(page-1)}>Previous</Button>
-            <Button disabled={tennisPlayers.length < pageSize} onClick={() => setPage(page + 1)}>Next</Button>
+            <Paginator
+                        rowsPerPage={pageSize}
+                        totalRows={totalRows}
+                        currentPage={page}
+                        isFirstPage={page === 1}
+                        isLastPage={isLastPage}
+                        setPage={setCurrentPage}
+                        goToNextPage={goToNextPage}
+                        goToPrevPage={goToPrevPage}
+                    />
             </>
         )}
     </Container>

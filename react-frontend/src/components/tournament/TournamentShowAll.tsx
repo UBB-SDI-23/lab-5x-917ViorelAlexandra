@@ -21,7 +21,7 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Link } from "react-router-dom";
 import { BACKEND_API_URL } from "../../constants";
-
+import { Paginator } from "../pagination/Pagination";
 
 
 export const TournamentShowAll = () => {
@@ -30,6 +30,28 @@ export const TournamentShowAll = () => {
     const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const current = (page - 1) * pageSize + 1;
+    const [isLastPage, setIsLastPage] = useState(false);
+    const [totalRows, setTotalRows] = useState(0);
+
+    const setCurrentPage = (newPage: number) => {
+        setPage(newPage);
+    }
+
+    const goToNextPage = () => {
+        if (isLastPage) {
+            return;
+        }
+
+        setPage(page + 1);
+    }
+
+    const goToPrevPage = () => {
+        if (page === 1) {
+            return;
+        }
+
+        setPage(page - 1);
+    }
 
     const fetchTournaments = async() => {
         setLoading(true);
@@ -38,6 +60,8 @@ export const TournamentShowAll = () => {
         );
         const {count, next, previous, results} = await response.json();
         setTournaments(results);
+        setTotalRows(count);
+        setIsLastPage(!next);
         setLoading(false);
         console.log(results);
     };
@@ -134,8 +158,16 @@ export const TournamentShowAll = () => {
                 </TableBody>
                 </Table>
             </TableContainer>
-            <Button disabled={page === 1} onClick={() => setPage(page-1)}>Previous</Button>
-            <Button disabled={tournaments.length < pageSize} onClick={() => setPage(page + 1)}>Next</Button>
+            <Paginator
+                        rowsPerPage={pageSize}
+                        totalRows={totalRows}
+                        currentPage={page}
+                        isFirstPage={page === 1}
+                        isLastPage={isLastPage}
+                        setPage={setCurrentPage}
+                        goToNextPage={goToNextPage}
+                        goToPrevPage={goToPrevPage}
+                    />
             </>
         )}
     </Container>
