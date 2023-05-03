@@ -5,6 +5,9 @@ from .Views.TennisPlayerViews import TennisPlayerListCreateView, TennisPlayerInf
     PlayersByAvgYearsOfExperienceOfCoaches, PlayersRegisteredInGrandSlams, TennisPlayerOrderedByName
 from .Views.TournamentRegistrationViews import TournamentRegistrationListCreateView, TournamentRegistrationInfo
 from .Views.TournamentViews import TournamentInfo, TournamentListCreateView, TournamentOrderedByName
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from .Views.RegisterView import UserRegistrationView, UserActivationView
+from .Views.LoginView import LoginView
 
 urlpatterns = [
 
@@ -22,4 +25,8 @@ urlpatterns = [
     path("playergs/", PlayersRegisteredInGrandSlams.as_view()),
     path("playerOrdName/<str:p_last_name>/", TennisPlayerOrderedByName.as_view()),
     path("tournamentOrdName/<str:name>/", TournamentOrderedByName.as_view()),
+    path("login/", LoginView.as_view(), name="token_obtain_pair"),
+    path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("register/", UserRegistrationView.as_view(), name="register"),
+    path("activate/", UserActivationView.as_view(), name="activate-user"),
 ]

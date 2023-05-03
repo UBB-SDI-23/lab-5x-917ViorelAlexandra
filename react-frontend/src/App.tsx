@@ -29,6 +29,9 @@ import { TennisPlayerShowAvgExpCoach } from './components/tennisPlayer/TennisPla
 import { TennisPlayerShowTop3GrandSlam } from './components/tennisPlayer/TennisPlayerStatisticTop3GS';
 import { CoachYoeFilter } from './components/coach/CoachYoeFilter';
 import { Statistics } from './components/Statistics';
+import { RegistrationForm } from './components/auth/Register';
+import { ActivateAccount } from './components/auth/Activate';
+import { LoginForm } from './components/auth/Login';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -66,6 +69,10 @@ function App() {
           <Route path="/statisticsplayers/avgyoe" element={<TennisPlayerShowAvgExpCoach />} />
           <Route path="/statisticsplayers/grandslam" element={<TennisPlayerShowTop3GrandSlam />} />
           <Route path="/statisticcoaches/yoe" element={<CoachYoeFilter />} />
+
+          <Route path="/register" element={<RegistrationForm />} />
+          <Route path="/activate/:activationCode" element={<ActivateAccount />} />
+          <Route path="/login" element={<LoginForm />} />
 
         </Routes>
       </Router>

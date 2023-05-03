@@ -5,6 +5,8 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import SportsIcon from '@mui/icons-material/Sports';
 import InsightsIcon from '@mui/icons-material/Insights';
 import FestivalIcon from '@mui/icons-material/Festival';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import LoginIcon from '@mui/icons-material/Login';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 
 export const AppMenu = () => {
@@ -28,6 +30,24 @@ export const AppMenu = () => {
 					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
 						Tennis Tournaments management
 					</Typography>
+					<Button
+						variant={path.startsWith("/register") ? "outlined" : "text"}
+						to="/register"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<HowToRegIcon />}>
+						Register
+					</Button>
+					<Button
+						variant={path.startsWith("/login") ? "outlined" : "text"}
+						to="/login"
+						component={Link}
+						color="inherit"
+						sx={{ mr: 5 }}
+						startIcon={<LoginIcon />}>
+						Login
+					</Button>
 					<Button
 						variant={path.startsWith("/tennisplayers") ? "outlined" : "text"}
 						to="/tennisplayers"
