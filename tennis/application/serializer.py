@@ -11,7 +11,7 @@ class TennisPlayerSerializer(serializers.ModelSerializer):
 
     avg_yoe_coach = serializers.FloatField(read_only=True)
     nb_coaches = serializers.IntegerField(read_only=True)
-    added_by = User
+    added_by = User()
 
     class Meta:
         model = TennisPlayer
@@ -57,6 +57,7 @@ class CoachSerializer(serializers.ModelSerializer):
     c_years_of_experience = serializers.IntegerField()
     c_email = serializers.CharField(max_length=100)
     player = TennisPlayer()
+    added_by = User()
 
     class Meta:
         model = Coach
@@ -94,6 +95,8 @@ class CoachIdSerializer(serializers.ModelSerializer):
 class TournamentSerializer(serializers.ModelSerializer):
 
     nb_registers = serializers.IntegerField(read_only=True)
+    added_by = User()
+
     class Meta:
         model = Tournament
         fields = "__all__"
