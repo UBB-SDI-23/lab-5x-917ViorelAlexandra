@@ -1,4 +1,5 @@
 import { TennisPlayer } from "./TennisPlayer";
+import { User } from "./User";
 
 export interface TournamentFull {
     id: number;
@@ -8,5 +9,5 @@ export interface TournamentFull {
     t_end_date: string;
     t_type: string;
     players: TennisPlayer[];
-    added_by: number;
+    added_by: User;
 }
