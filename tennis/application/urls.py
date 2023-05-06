@@ -8,6 +8,7 @@ from .Views.TournamentViews import TournamentInfo, TournamentListCreateView, Tou
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .Views.RegisterView import UserRegistrationView, UserActivationView
 from .Views.LoginView import LoginView
+from .Views.UserView import UserDetail
 
 urlpatterns = [
 
@@ -29,4 +30,5 @@ urlpatterns = [
     path("login/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     path("register/", UserRegistrationView.as_view(), name="register"),
     path("activate/", UserActivationView.as_view(), name="activate-user"),
+    path("profile/<str:id>/", UserDetail.as_view(), name="profile"),
 ]

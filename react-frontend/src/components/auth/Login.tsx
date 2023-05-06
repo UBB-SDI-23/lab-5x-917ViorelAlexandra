@@ -5,6 +5,7 @@ import axios from 'axios';
 import { BACKEND_API_URL } from '../../constants';
 import { ToastContainer, toast } from 'react-toastify';
 import { useNavigate } from "react-router-dom";
+import jwt_decode from 'jwt-decode';
 
 export const LoginForm = () => {
     const navigate = useNavigate();
@@ -25,6 +26,9 @@ export const LoginForm = () => {
             const response = await axios.post(`${BACKEND_API_URL}/login/`, data);
             const access_token = response.data['access'];
             localStorage.setItem('token', access_token);
+            const decoded: any = jwt_decode(access_token);
+            const user = decoded['user'];
+            localStorage.setItem('user_id', user["id"]);
             navigate(`/`);
         }
         catch (error: any) {

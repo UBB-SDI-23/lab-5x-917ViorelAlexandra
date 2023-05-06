@@ -8,10 +8,49 @@ import FestivalIcon from '@mui/icons-material/Festival';
 import HowToRegIcon from '@mui/icons-material/HowToReg';
 import LoginIcon from '@mui/icons-material/Login';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
+import LogoutIcon from '@mui/icons-material/Logout';
+import { useEffect, useState } from "react";
+import { User } from "../models/User";
+import jwt_decode from 'jwt-decode';
 
 export const AppMenu = () => {
     const location = useLocation();
     const path = location.pathname;
+
+	const [user, setUser] = useState<User>({
+		id: 1,
+        username: '',
+        u_first_name: '',
+        u_last_name: '',
+        u_date_of_birth: '',
+        u_bio: '',
+        u_location: ''
+    });
+
+	useEffect(() => {
+		const intervalId = setInterval(() => {
+			const token = localStorage.getItem('token');
+			if (token !== null) {
+			const decoded: any = jwt_decode(token);
+			const user = decoded['user'];
+			setUser(user);
+			}
+			else {
+				setUser({
+				id: 1,
+				username: '',
+				u_first_name: '',
+				u_last_name: '',
+				u_date_of_birth: '',
+				u_bio: '',
+				u_location: ''
+				})
+			}
+		}, 1000);
+	
+		// Clean up the interval when the component unmounts
+		return () => clearInterval(intervalId);
+	  }, []);
 
     return (
 		<Box>
@@ -30,24 +69,42 @@ export const AppMenu = () => {
 					<Typography variant="h6" component="div" sx={{ mr: 5 }}>
 						Tennis Tournaments management
 					</Typography>
-					<Button
-						variant={path.startsWith("/register") ? "outlined" : "text"}
-						to="/register"
+					{user.username === '' && (
+						<>
+							<Button
+							variant={path.startsWith("/register") ? "outlined" : "text"}
+							to="/register"
+							component={Link}
+							color="inherit"
+							sx={{ mr: 5 }}
+							startIcon={<HowToRegIcon />}>
+							Register
+							</Button>
+							<Button
+							variant={path.startsWith("/login") ? "outlined" : "text"}
+							to="/login"
+							component={Link}
+							color="inherit"
+							sx={{ mr: 5 }}
+							startIcon={<LoginIcon />}
+							>
+							Login
+							</Button>      
+						</>      		
+					)}
+					{user.username !== '' && (
+						<Button
+						variant={path.startsWith("/logout") ? "outlined" : "text"}
+						to="/logout"
 						component={Link}
 						color="inherit"
 						sx={{ mr: 5 }}
-						startIcon={<HowToRegIcon />}>
-						Register
-					</Button>
-					<Button
-						variant={path.startsWith("/login") ? "outlined" : "text"}
-						to="/login"
-						component={Link}
-						color="inherit"
-						sx={{ mr: 5 }}
-						startIcon={<LoginIcon />}>
-						Login
-					</Button>
+						startIcon={<LogoutIcon />}
+						>
+						Logout
+						</Button>     
+					)}
+
 					<Button
 						variant={path.startsWith("/tennisplayers") ? "outlined" : "text"}
 						to="/tennisplayers"

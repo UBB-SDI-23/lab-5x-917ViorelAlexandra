@@ -11,10 +11,12 @@ class TennisPlayerSerializer(serializers.ModelSerializer):
 
     avg_yoe_coach = serializers.FloatField(read_only=True)
     nb_coaches = serializers.IntegerField(read_only=True)
+    added_by = User
 
     class Meta:
         model = TennisPlayer
         fields = "__all__"
+        depth = 1
 
     def validate_gender(self, value):
         if value['tp_gender'] not in ['M', 'F']:
@@ -59,6 +61,7 @@ class CoachSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coach
         fields = "__all__"
+        depth = 1
 
     def validate_player_id(self, value):
         filter = TennisPlayer.objects.filter(id=value)
@@ -94,6 +97,7 @@ class TournamentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tournament
         fields = "__all__"
+        depth = 1
 
 class TournamentIdSerializer(serializers.ModelSerializer):
     class Meta:

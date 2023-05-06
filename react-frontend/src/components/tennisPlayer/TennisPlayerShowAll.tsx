@@ -120,6 +120,7 @@ export const TennisPlayerShowAll = () => {
                             <TableCell align="center">Country</TableCell>
                             <TableCell align="center">Gender</TableCell>
                             <TableCell align="center">Number of coaches</TableCell>
+                            <TableCell align="center">Added By</TableCell>
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>
@@ -136,6 +137,11 @@ export const TennisPlayerShowAll = () => {
                                 <TableCell align="center">{tennisPlayer.tp_country}</TableCell>
                                 <TableCell align="center">{tennisPlayer.tp_gender}</TableCell>
                                 <TableCell align="center">{tennisPlayer.nb_coaches}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    <Link to={`/profile/${tennisPlayer.added_by.id}`}>
+                                        {tennisPlayer.added_by.username}
+                                    </Link>
+                                </TableCell>
                                 <TableCell align="right">
 										<IconButton
 											component={Link}

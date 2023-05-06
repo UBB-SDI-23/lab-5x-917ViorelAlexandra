@@ -1,5 +1,6 @@
 import { Coach } from "./Coach";
 import { Tournament } from "./Tournament";
+import { User } from "./User";
 
 export interface TennisPlayerFull {
     id: number;
@@ -11,4 +12,5 @@ export interface TennisPlayerFull {
     tp_gender: string;
     tournaments: Tournament[];
     coaches: Coach[];
+    added_by: User;
 }

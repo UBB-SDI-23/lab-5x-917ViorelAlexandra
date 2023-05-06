@@ -9,4 +9,5 @@ export interface CoachFull {
     c_email: string;
     player: TennisPlayer;
     c_description: string;
+    added_by: number;
 }

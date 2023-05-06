@@ -17,6 +17,7 @@ export const TennisPlayerAdd = () => {
         tp_date_of_birth:"",
         tp_country:"",
         tp_gender:"",
+		added_by:1,
     });
 
     const addTennisPlayer =async (event: { preventDefault: () => void}) => {
@@ -27,6 +28,13 @@ export const TennisPlayerAdd = () => {
 			}
 			if (tennisPlayer.tp_rank < 1) {
 				throw new Error("Rank must be at least 1!");
+			}
+			const id = localStorage.getItem('user_id');
+			if (id) {
+				tennisPlayer.added_by = parseInt(id);
+			}
+			else {
+				tennisPlayer.added_by = 1;
 			}
 			const response = await axios.post(`${BACKEND_API_URL}/tennisplayer/`, tennisPlayer);
             if (response.status < 200 || response.status >= 300) {

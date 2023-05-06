@@ -12,7 +12,7 @@ class TennisPlayer(models.Model):
     tp_country = models.CharField(max_length=100)
     tp_gender = models.CharField(max_length=10, default="X")
     tournaments = models.ManyToManyField('Tournament', through='TournamentRegistration')
-    # added_by = models.ForeignKey('User', on_delete=models.CASCADE, default=None)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.tp_last_name
@@ -30,7 +30,7 @@ class Coach(models.Model):
     c_email = models.CharField(max_length=100)
     player = models.ForeignKey(TennisPlayer, on_delete=models.CASCADE, related_name="coaches")
     c_description = models.CharField(max_length=5000, default="")
-    # added_by = models.ForeignKey('User', on_delete=models.CASCADE, default=None)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 
     def __str__(self):
@@ -49,7 +49,7 @@ class Tournament(models.Model):
     t_end_date = models.DateField()
     t_type = models.CharField(max_length=100)
     players = models.ManyToManyField(TennisPlayer, through='TournamentRegistration')
-    # added_by = models.ForeignKey('User', on_delete=models.CASCADE, default=None)
+    added_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 
     def __str__(self):

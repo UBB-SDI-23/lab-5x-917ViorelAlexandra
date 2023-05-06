@@ -8,4 +8,5 @@ export interface TournamentFull {
     t_end_date: string;
     t_type: string;
     players: TennisPlayer[];
+    added_by: number;
 }

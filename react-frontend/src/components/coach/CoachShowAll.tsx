@@ -118,6 +118,7 @@ export const CoachShowAll = () => {
                             <TableCell align="center">Date Of Birth</TableCell>
                             <TableCell align="center">Years of experience</TableCell>
                             <TableCell align="center">Email</TableCell>
+                            <TableCell align="center">Added By</TableCell>
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>
@@ -132,6 +133,11 @@ export const CoachShowAll = () => {
                                 <TableCell align="center">{coach.c_date_of_birth}</TableCell>
                                 <TableCell align="center">{coach.c_years_of_experience}</TableCell>
                                 <TableCell align="center">{coach.c_email}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    <Link to={`/profile/${coach.added_by.id}`}>
+                                        {coach.added_by.username}
+                                    </Link>
+                                </TableCell>
                                 <TableCell align="right">
 										<IconButton
 											component={Link}

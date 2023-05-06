@@ -16,11 +16,19 @@ export const TournamentAdd = () => {
         t_start_date:"",
         t_end_date:"",
         t_type:"",
+		added_by:1,
     });
 
     const addTournament =async (event: { preventDefault: () => void}) => {
         event.preventDefault();
         try {
+			const id = localStorage.getItem('user_id');
+			if (id) {
+				tournament.added_by = parseInt(id);
+			}
+			else {
+				tournament.added_by = 1;
+			}
             const response = await axios.post(`${BACKEND_API_URL}/tournament/`, tournament);
 			if (response.status < 200 || response.status >= 300) {
 				throw new Error("An error occured while adding the tournament!");
