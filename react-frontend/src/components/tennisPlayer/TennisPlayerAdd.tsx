@@ -30,7 +30,7 @@ export const TennisPlayerAdd = () => {
 				throw new Error("Rank must be at least 1!");
 			}
 			const id = localStorage.getItem('user_id');
-			if (id) {
+			if (id !== null) {
 				tennisPlayer.added_by = parseInt(id);
 			}
 			else {
