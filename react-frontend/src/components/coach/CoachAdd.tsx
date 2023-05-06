@@ -20,6 +20,7 @@ export const CoachAdd = () => {
         c_email:"",
         c_description:"",
         player: 1,
+		added_by: 1,
     });
 	const [page, setPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
@@ -50,6 +51,13 @@ export const CoachAdd = () => {
         try {
 			if (coach.c_years_of_experience < 0) {
 				throw new Error("Years of experience must be at least 0!");
+			}
+			const id = localStorage.getItem('user_id');
+			if (id) {
+				coach.added_by = parseInt(id);
+			}
+			else {
+				coach.added_by = 1;
 			}
             const response = await axios.post(`${BACKEND_API_URL}/coach/`, coach);
             if (response.status < 200 || response.status >= 300) {

@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface TennisPlayer {
     id: number;
     tp_first_name: string;
@@ -9,4 +11,5 @@ export interface TennisPlayer {
     nb_coaches: number;
     tournaments: number[];
     coaches: number[];
+    added_by: User;
 }

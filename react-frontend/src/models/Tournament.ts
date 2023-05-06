@@ -1,3 +1,5 @@
+import { User } from "./User";
+
 export interface Tournament {
     id: number;
     t_name: string;
@@ -6,4 +8,5 @@ export interface Tournament {
     t_end_date: string;
     t_type: string;
     nb_registers: number;
+    added_by: User;
 }

@@ -120,6 +120,7 @@ export const TournamentShowAll = () => {
                             <TableCell align="center">End date</TableCell>
                             <TableCell align="center">Type</TableCell>
                             <TableCell align="center">Nb of registers</TableCell>
+                            <TableCell align="center">Added By</TableCell>
                             <TableCell align="center">Operations</TableCell>
                         </TableRow>
                     </TableHead>
@@ -134,6 +135,11 @@ export const TournamentShowAll = () => {
                                 <TableCell align="center">{tournament.t_start_date}</TableCell>
                                 <TableCell align="center">{tournament.t_end_date}</TableCell>
                                 <TableCell align="center">{tournament.t_type}</TableCell>
+                                <TableCell component="th" scope="row">
+                                    <Link to={`/profile/${tournament.added_by.id}`}>
+                                        {tournament.added_by.username}
+                                    </Link>
+                                </TableCell>
                                 <TableCell align="center">{tournament.nb_registers}</TableCell>
                                 <TableCell align="right">
 										<IconButton
