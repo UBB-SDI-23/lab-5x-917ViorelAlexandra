@@ -1,4 +1,5 @@
 import { TennisPlayer } from "./TennisPlayer";
+import { User } from "./User";
 
 export interface CoachFull {
     id: number;
@@ -9,5 +10,5 @@ export interface CoachFull {
     c_email: string;
     player: TennisPlayer;
     c_description: string;
-    added_by: number;
+    added_by: User;
 }
