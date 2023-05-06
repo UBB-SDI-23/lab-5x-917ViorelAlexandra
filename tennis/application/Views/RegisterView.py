@@ -2,6 +2,7 @@ import uuid
 from datetime import timedelta
 from typing import Any
 
+from django.contrib.auth.models import User
 from django.utils import timezone
 from rest_framework import generics, status
 from rest_framework.request import Request
@@ -54,7 +55,11 @@ class UserActivationView(generics.UpdateAPIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+        user = User.objects.get(username = user_profile.user.username)
+
         if user_profile.activation_expiry_date < timezone.now():
+            user_profile.delete()
+            user.delete()
             return Response(
                 {"error": "Activation code expired"}, status=status.HTTP_400_BAD_REQUEST
             )
@@ -64,8 +69,10 @@ class UserActivationView(generics.UpdateAPIView):
                 {"success": "Account already active"}, status=status.HTTP_200_OK
             )
 
+        user.is_active = True
         user_profile.active = True
         user_profile.save()
+        user.save()
         return Response(
             {"success": "User profile activated"}, status=status.HTTP_200_OK
         )
