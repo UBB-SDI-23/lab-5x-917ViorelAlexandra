@@ -1,30 +1,17 @@
-from django.db.models import Avg, Count
+from typing import Any
+
+from django.db.models import Avg, Count, QuerySet
 from rest_framework import status, generics
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework.serializers import BaseSerializer
 from rest_framework.views import APIView
 
 from .Pagination import CustomPagination
 from ..models import TennisPlayer, TournamentRegistration
 from ..serializer import TennisPlayerSerializer, TennisPlayerIdSerializer, CoachSerializer, \
     TournamentRegistrationSerializer
-
-# class TennisPlayerDetail(APIView):
-#
-#     serializer_class = TennisPlayerSerializer
-#     pagination_class = CustomPagination
-#
-#     def get(self, request):
-#         obj = TennisPlayer.objects.all()
-#         #ids_list = list(obj.values_list('id', flat=True))
-#         serializer = TennisPlayerSerializer(obj, many=True)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-#
-#     def post(self, request):
-#         serializer = TennisPlayerSerializer(data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         return Response(serializer.data, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TennisPlayerListCreateView(generics.ListCreateAPIView):
@@ -33,8 +20,19 @@ class TennisPlayerListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = TennisPlayer.objects.all().annotate(nb_coaches=Count('coaches'))
-        #print(queryset.explain())
         return queryset
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        serializer = TennisPlayerSerializer(data=data, depth=0)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
+
+
 
 class TennisPlayerInfo(APIView):
 

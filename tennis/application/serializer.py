@@ -6,9 +6,14 @@ from .models import TennisPlayer, Coach, Tournament, TournamentRegistration, Use
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.serializers import RefreshToken, TokenObtainPairSerializer
 
+class DynamicSerializer(serializers.ModelSerializer):
+    def __init__(self, *args, **kwargs):
+        kwargs.pop('fields', None)
+        depth = kwargs.pop('depth', None)
+        super().__init__(*args, **kwargs)
+        self.Meta.depth = 1 if depth is None else depth
 
-class TennisPlayerSerializer(serializers.ModelSerializer):
-
+class TennisPlayerSerializer(DynamicSerializer):
     avg_yoe_coach = serializers.FloatField(read_only=True)
     nb_coaches = serializers.IntegerField(read_only=True)
     added_by = User()
@@ -49,7 +54,7 @@ class TennisPlayerIdSerializer(serializers.ModelSerializer):
         depth = 1
 
 
-class CoachSerializer(serializers.ModelSerializer):
+class CoachSerializer(DynamicSerializer):
 
     c_first_name = serializers.CharField(max_length=100)
     c_last_name = serializers.CharField(max_length=100)
@@ -62,7 +67,6 @@ class CoachSerializer(serializers.ModelSerializer):
     class Meta:
         model = Coach
         fields = "__all__"
-        depth = 1
 
     def validate_player_id(self, value):
         filter = TennisPlayer.objects.filter(id=value)
@@ -92,7 +96,7 @@ class CoachIdSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Years of experience must be at least 0!")
 
 
-class TournamentSerializer(serializers.ModelSerializer):
+class TournamentSerializer(DynamicSerializer):
 
     nb_registers = serializers.IntegerField(read_only=True)
     added_by = User()
@@ -100,7 +104,6 @@ class TournamentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tournament
         fields = "__all__"
-        depth = 1
 
 class TournamentIdSerializer(serializers.ModelSerializer):
     class Meta:

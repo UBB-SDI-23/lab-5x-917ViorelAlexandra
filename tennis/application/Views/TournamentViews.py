@@ -31,8 +31,17 @@ class TournamentListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         queryset = Tournament.objects.all().annotate(nb_registers=Count('players'))
-        #print(queryset.explain())
         return queryset
+
+    def create(self, request, *args, **kwargs):
+        data = request.data.copy()
+        serializer = TournamentSerializer(data=data, depth=0)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data, status=status.HTTP_201_CREATED, headers=headers
+        )
 
 
 class TournamentInfo(APIView):
