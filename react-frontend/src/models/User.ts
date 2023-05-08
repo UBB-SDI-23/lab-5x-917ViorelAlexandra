@@ -6,4 +6,5 @@ export interface User {
     u_date_of_birth: string;
     u_bio: string;
     u_location: string;
+    page_size: number;
 }
