@@ -55,8 +55,12 @@ export const CoachShowAll = () => {
 
     const fetchCoaches = async() => {
         setLoading(true);
+        const stringUser = localStorage.getItem("user");
+        const user = JSON.parse(stringUser!);
+        const new_page_size = user?.page_size || 10;
+        setPageSize(new_page_size);
         const response = await fetch(
-            `${BACKEND_API_URL}/coach?page=${page}&page_size=${pageSize}`
+            `${BACKEND_API_URL}/coach?page=${page}&page_size=${new_page_size}`
         );
         const {count, next, previous, results} = await response.json();
         setCoaches(results);
