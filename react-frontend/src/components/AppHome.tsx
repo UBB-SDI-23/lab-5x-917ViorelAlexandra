@@ -43,6 +43,7 @@ export const AppHome = () => {
 					sx={{ mb: 2, color: "whitesmoke !important" }}
 					value={user.page_size}
 					type="number"
+					style={{ backgroundColor: "whitesmoke", color: "whitesmoke" }}
 					onChange={(event) => {
 						const size = Number(event.target.value);
 						if (size < 0 || size > 100) {
