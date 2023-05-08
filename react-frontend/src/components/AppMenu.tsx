@@ -24,7 +24,8 @@ export const AppMenu = () => {
         u_last_name: '',
         u_date_of_birth: '',
         u_bio: '',
-        u_location: ''
+        u_location: '',
+		page_size: 1
     });
 
 	useEffect(() => {
@@ -43,7 +44,8 @@ export const AppMenu = () => {
 				u_last_name: '',
 				u_date_of_birth: '',
 				u_bio: '',
-				u_location: ''
+				u_location: '',
+				page_size: 0,
 				})
 			}
 		}, 1000);

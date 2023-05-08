@@ -12,7 +12,8 @@ export const AppHome = () => {
         u_last_name: '',
         u_date_of_birth: '',
         u_bio: '',
-        u_location: ''
+        u_location: '',
+		page_size: 1,
     });
 
     useEffect(() => {
@@ -33,6 +34,33 @@ export const AppHome = () => {
 			{user.username !== '' && (
 			<>
 				<h1>Welcome back, {user.username} !</h1>
+				<>
+				<TextField
+					id="page_sizes"
+					label="Page Size"
+					variant="outlined"
+					fullWidth
+					sx={{ mb: 2, color: "whitesmoke !important" }}
+					value={user.page_size}
+					type="number"
+					onChange={(event) => {
+						const size = Number(event.target.value);
+						if (size < 0 || size > 100) {
+							return;
+						}
+
+						setUser({
+							...user,
+							page_size: size
+						});
+						
+						localStorage.setItem('user', JSON.stringify({
+							...user,
+							page_size: size
+						}));
+					}}
+					/>
+				</>
 				<Container>
 				<Card style={{ backgroundColor: "whitesmoke", color: "whitesmoke" }}>
 					<CardContent style={{ backgroundColor: "whitesmoke", color: "whitesmoke" }}>
